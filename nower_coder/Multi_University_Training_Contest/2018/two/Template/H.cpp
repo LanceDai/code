@@ -7,7 +7,7 @@
 
 using namespace std;
 
-typedef unsigned long long ull;
+typedef unsigned long long ULL;
 typedef long long LL;
 typedef pair<int, int> pi;
 
@@ -62,7 +62,7 @@ bool chkmax(T &a, T b) { return a < b ? a = b, true : false; }
 const int N = 400005;
 
 int n, w[N];
-LL f[N][4], g[N][4];
+LL group[N][4], g[N][4];
 vector<int> e[N];
 
 void dfs(int u, int fa = 0) {
@@ -72,7 +72,7 @@ void dfs(int u, int fa = 0) {
         if (v != fa) {
             dfs(v, u);
             memset(b, 0, sizeof(b));
-            for (x = 0; x <= 3; x++) b[x][0] = f[v][x], b[x][1] = g[v][x];
+            for (x = 0; x <= 3; x++) b[x][0] = group[v][x], b[x][1] = g[v][x];
             memset(c, 0, sizeof(c));
             for (x = 0; x <= 3; x++)
                 for (y = 0; x + y <= 3; y++)
@@ -81,8 +81,8 @@ void dfs(int u, int fa = 0) {
                             chkmax(c[x + y][p + q], a[x][p] + b[y][q]);
             memcpy(a, c, sizeof(c));
         }
-    for (x = 0; x <= 3; x++) chkmax(f[u][x], a[x][0]);
-    for (x = 1; x <= 3; x++) for (y = 0; y <= 2; y++) chkmax(f[u][x], a[x - 1][y] + w[u]);
+    for (x = 0; x <= 3; x++) chkmax(group[u][x], a[x][0]);
+    for (x = 1; x <= 3; x++) for (y = 0; y <= 2; y++) chkmax(group[u][x], a[x - 1][y] + w[u]);
     for (x = 0; x <= 3; x++) for (y = 0; y <= 1; y++) chkmax(g[u][x], a[x][y] + w[u]);
 }
 
@@ -92,6 +92,6 @@ int main() {
     for (i = 1; i <= n; i++) gi(w[i]);
     for (i = 1; i < n; i++) gi(u), gi(v), e[u].push_back(v), e[v].push_back(u);
     dfs(1);
-    printf("%lld\n", f[1][3]);
+    printf("%lld\n", group[1][3]);
     return 0;
 }

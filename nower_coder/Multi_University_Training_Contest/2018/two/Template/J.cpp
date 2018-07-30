@@ -109,7 +109,7 @@ using io::gs;
 using io::ps;
 using io::print;
 
-int a[N], s[N], f[N];
+int a[N], s[N], group[N];
 #define y1 y_1
 int x1[N], y1[N], x2[N], y2[N], tp[N];
 int n, m;
@@ -144,19 +144,19 @@ int main() {
     }
     work(s);
     for (v = 0; v < 20; v++) {
-        for (i = 1; i <= n * m; i++) f[i] = 0;
+        for (i = 1; i <= n * m; i++) group[i] = 0;
         for (i = 1; i <= T; i++)
             if (tp[i] >> v & 1) {
-                add(i, f);
+                add(i, group);
             }
-        work(f);
+        work(group);
         for (i = 1; i <= n * m; i++)
             if (a[i] >> v & 1) {
-                if (f[i] != s[i]) {
+                if (group[i] != s[i]) {
                     die[i] = true;
                 }
             } else {
-                if (f[i]) {
+                if (group[i]) {
                     die[i] = true;
                 }
             }

@@ -7,13 +7,13 @@
 #include <cstdio>
 
 using namespace std;
-const int maxn = 100005;
-const int MAXN = 2 * maxn;
+const int MAXN = 100005;
+const int MAXN = 2 * MAXN;
 struct ss {
     int x, y, pos;
-} f[maxn];
+} group[MAXN];
 //loc[i] = i出现的位置
-int loc[maxn], ans[maxn];
+int loc[MAXN], ans[MAXN];
 //Next[i] = i位置上的数下一个出现的位置
 //fir[i] = i位置上的数是否为第一次出现
 int a[MAXN], c[MAXN], Next[MAXN], fir[MAXN];
@@ -91,15 +91,15 @@ int main() {
 
         //区间处理，
         for (int i = 1; i <= q; i++) {
-            scanf("%d %d", &f[i].x, &f[i].y);
+            scanf("%d %d", &group[i].x, &group[i].y);
 //			cin>>f[i].x>>f[i].y;
-            f[i].x += n;
-            swap(f[i].x, f[i].y);
-            f[i].pos = i;
+            group[i].x += n;
+            swap(group[i].x, group[i].y);
+            group[i].pos = i;
         }
 
 //		区间排序
-        sort(f + 1, f + q + 1, cmp);
+        sort(group + 1, group + q + 1, cmp);
 
 //		for (int i =1; i <= q; i++) {
 //			printf("f[i].x = %d f[i].y = %d f[i].pos = %d\n", f[i].x, f[i].y, f[i].pos);
@@ -107,9 +107,9 @@ int main() {
 
         int nextLIndex = 1;
         for (int i = 1; i <= 2 * n && nextLIndex <= q;) {
-            if (i == f[nextLIndex].x) {
+            if (i == group[nextLIndex].x) {
 // Query
-                ans[f[nextLIndex].pos] = sum(f[nextLIndex].y) - sum(f[nextLIndex].x) + 1;
+                ans[group[nextLIndex].pos] = sum(group[nextLIndex].y) - sum(group[nextLIndex].x) + 1;
                 nextLIndex++;
 //				printf("f[i].pos = %d ans = %d\n", f[i].pos, ans[f[i].pos]);
             } else {

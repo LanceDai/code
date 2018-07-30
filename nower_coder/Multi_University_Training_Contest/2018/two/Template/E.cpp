@@ -15,7 +15,7 @@ int gi() {
 }
 
 const int mod = 1e9 + 7;
-int f[N][M];
+int group[N][M];
 int fa[N], st[N];
 
 inline int qpow(int x, int y) {
@@ -31,20 +31,20 @@ inline int qpow(int x, int y) {
 inline void dp(int a, int b) {
     for (int i = M - 1; i; i--)
         for (int j = 1; j < i; j++)
-            f[a][i] = (f[a][i] + 1LL * f[a][j] * f[b][i - j]) % mod;
+            group[a][i] = (group[a][i] + 1LL * group[a][j] * group[b][i - j]) % mod;
 }
 
 inline void Idp(int a, int b) {
     for (int i = 1; i < M; i++)
         for (int j = 1; j < i; j++)
-            f[a][i] = (f[a][i] - 1LL * f[a][j] * f[b][i - j]) % mod;
+            group[a][i] = (group[a][i] - 1LL * group[a][j] * group[b][i - j]) % mod;
 }
 
 int main() {
     int n = gi(), m = gi(), i, k, s, t, top, op;
     assert(1 <= n && n <= 100000);
     assert(1 <= m && m <= 100000);
-    for (i = 1; i <= n; i++) f[i][1] = gi(), assert(0 < f[i][1] && f[i][1] < mod);
+    for (i = 1; i <= n; i++) group[i][1] = gi(), assert(0 < group[i][1] && group[i][1] < mod);
     for (i = 2; i <= n; i++) fa[i] = gi(), assert(fa[i] > 0 && fa[i] < i);
     for (i = n; i > 1; i--)
         dp(fa[i], i);
@@ -53,14 +53,14 @@ int main() {
             k = gi(), s = gi();
             assert(1 <= k && k <= n);
             assert(0 < s && s <= 10);
-            for (i = 1; i < M; i++) f[0][i] = 0;
+            for (i = 1; i < M; i++) group[0][i] = 0;
             for (t = k, top = 0; t && top < 10; t = fa[t]) st[++top] = t;
             while (t = st[top--]) {
-                for (i = 1; i < M; i++) f[n + 1][i] = f[0][i], f[0][i] = f[t][i];
+                for (i = 1; i < M; i++) group[n + 1][i] = group[0][i], group[0][i] = group[t][i];
                 dp(0, n + 1);
                 if (top) Idp(0, st[top]);
             }
-            printf("%d\n", (f[0][s] + mod) % mod);
+            printf("%d\n", (group[0][s] + mod) % mod);
         } else {
             k = gi();
             assert(1 <= k && k <= n);
@@ -68,10 +68,10 @@ int main() {
             for (i = top - 1; i; i--)
                 Idp(st[i + 1], st[i]);
             if (!op) {
-                t = 1LL * qpow(f[k][1], mod - 2) * gi() % mod;
+                t = 1LL * qpow(group[k][1], mod - 2) * gi() % mod;
                 for (i = 1; i < M; i++)
-                    f[k][i] = 1LL * f[k][i] * t % mod;
-                assert(0 < f[k][1] && f[k][1] < mod);
+                    group[k][i] = 1LL * group[k][i] * t % mod;
+                assert(0 < group[k][1] && group[k][1] < mod);
             } else {
                 for (i = 2; i < top; i++)
                     dp(st[i + 1], st[i]);

@@ -229,7 +229,7 @@ inline pair<P, P> cross_line_circle(const line &l, const circle &c) {//��ֱ�
     d.uni();
     db len = sqrt(c.r * c.r - dis_point2(c.o, o));
     d = d * len;
-    return mp(o - d, o + d);
+    return make_pair(o - d, o + d);
 }
 
 inline pair<P, P> cross_circle_circle(const circle &a, const circle &b) {//����Բ�Ľ���
@@ -238,7 +238,7 @@ inline pair<P, P> cross_circle_circle(const circle &a, const circle &b) {//��
     P e = a.o + (b.o - a.o) * (t / 2 / len);
     db p = sqrt(a.r * a.r - t);
     P d = (b.o - a.o).rot90() * (p / sqrt(len));
-    return mp(e + d, e - d);
+    return make_pair(e + d, e - d);
 }
 
 inline pair<P, P> proj_point_circle(P p, const circle &c) {//��㵽Բ���е�
@@ -248,21 +248,21 @@ inline pair<P, P> proj_point_circle(P p, const circle &c) {//��㵽Բ���
     h = sqrt(h);
     p = p - c.o;
     p.uni();
-    return mp(c.o + p * w + p.rot90() * h, c.o + p * w - p.rot90() * h);
+    return make_pair(c.o + p * w + p.rot90() * h, c.o + p * w - p.rot90() * h);
 }
 
 inline pair<line, line> proj_circle_circle_out(const circle &a, const circle &b) {//������Բ���⹫����
     if (!dcmp(a.r - b.r)) {
         P p = (b.o - a.o).rot90();
         p.uni();
-        return mp((line) {a.o + p * a.r, b.o + p * b.r}, (line) {a.o - p * a.r, b.o - p * b.r});
+        return make_pair((line) {a.o + p * a.r, b.o + p * b.r}, (line) {a.o - p * a.r, b.o - p * b.r});
     }
     if (a.r < b.r)
         return proj_circle_circle_out(b, a);
     pair<P, P> p = proj_point_circle(b.o, (circle) {a.o, a.r - b.r});
     P d1 = (p.first - a.o) * (b.r / (a.r - b.r));
     P d2 = (p.second - a.o) * (b.r / (a.r - b.r));
-    return mp((line) {p.first + d1, b.o + d1}, (line) {p.first + d2, b.o + d2});
+    return make_pair((line) {p.first + d1, b.o + d1}, (line) {p.first + d2, b.o + d2});
 }
 
 inline pair<line, line> proj_circle_circle_in(const circle &a, const circle &b) {//������Բ���ڹ�����
@@ -271,7 +271,7 @@ inline pair<line, line> proj_circle_circle_in(const circle &a, const circle &b) 
     pair<P, P> p = proj_point_circle(b.o, (circle) {a.o, a.r + b.r});
     P d1 = (p.first - a.o) * (b.r / (a.r + b.r));
     P d2 = (p.first - a.o) * (b.r / (a.r + b.r));
-    return mp((line) {p.first - d1, b.o - d1}, (line) {p.second - d2, b.o - d2});
+    return make_pair((line) {p.first - d1, b.o - d1}, (line) {p.second - d2, b.o - d2});
 }
 
 namespace dinic {

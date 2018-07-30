@@ -114,7 +114,7 @@ using io::gs;
 using io::ps;
 using io::print;
 
-int p[N], d[N], f[N], st[N];
+int p[N], d[N], group[N], st[N];
 int vis[N];
 bool in[N];
 LL dp[N][2], g[N][2];
@@ -141,19 +141,19 @@ int main() {
     assert(1 <= n && n <= 1e5);
     for (i = 1; i <= n; i++) gi(p[i]), assert(0 <= p[i] && p[i] <= 1e9);
     for (i = 1; i <= n; i++) gi(d[i]), assert(0 <= d[i] && d[i] <= p[i]);
-    for (i = 1; i <= n; i++) gi(f[i]), assert(1 <= f[i] && f[i] <= n);
+    for (i = 1; i <= n; i++) gi(group[i]), assert(1 <= group[i] && group[i] <= n);
     for (i = 1; i <= n; i++)
         if (!vis[i]) {
             ++t;
-            for (k = i; !vis[k]; k = f[k]) vis[k] = t;
+            for (k = i; !vis[k]; k = group[k]) vis[k] = t;
             if (vis[k] == t)
-                for (++t; vis[k] != t; k = f[k]) vis[k] = t, in[k] = true;
+                for (++t; vis[k] != t; k = group[k]) vis[k] = t, in[k] = true;
         }
-    for (i = 1; i <= n; i++) if (!in[i]) e[f[i]].push_back(i);
+    for (i = 1; i <= n; i++) if (!in[i]) e[group[i]].push_back(i);
     for (i = 1; i <= n; i++)
         if (in[i]) {
             top = 0;
-            for (k = i; in[k]; k = f[k]) dfs(st[++top] = k), in[k] = false;
+            for (k = i; in[k]; k = group[k]) dfs(st[++top] = k), in[k] = false;
 
             if (top == 1)
                 ans += dp[i][0];
