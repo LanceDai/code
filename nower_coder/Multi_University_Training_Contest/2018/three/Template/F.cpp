@@ -1,21 +1,21 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-const int mod = 1000000007;
+const int MOD = 1000000007;
 
 inline int add(int a, int b) {
     a += b;
-    return a >= mod ? a - mod : a;
+    return a >= MOD ? a - MOD : a;
 }
 
 inline int sub(int a, int b) {
     a -= b;
-    return a < 0 ? a + mod : a;
+    return a < 0 ? a + MOD : a;
 }
 
 inline int mul(long long a, int b) {
     a *= b;
-    return a >= mod ? a % mod : a;
+    return a >= MOD ? a % MOD : a;
 }
 
 inline int val(char ctmp) {

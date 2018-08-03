@@ -17,7 +17,7 @@ int gi() {
 }
 
 const int seed = 131;
-const int mod = 1e9 + 7;
+const int MOD = 1e9 + 7;
 const int N = 1e6 + 100;
 int h[N], L[N], nxt[N];
 
@@ -61,8 +61,8 @@ int main() {
         for (j = 1; j <= m; j++) {
             c = s[j];
             assert('a' <= c && c <= 'z');
-            h[i] = (1LL * h[i] * seed + key[c - 'a']) % mod;
-            L[j] = (1LL * L[j] * seed + key[c - 'a']) % mod;
+            h[i] = (1LL * h[i] * seed + key[c - 'a']) % MOD;
+            L[j] = (1LL * L[j] * seed + key[c - 'a']) % MOD;
         }
     }
     a = kmp(h, n);

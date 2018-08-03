@@ -2,22 +2,22 @@
 
 using namespace std;
 const int N = 5140;
-const int mod = 1000000007;
+const int MOD = 1000000007;
 int fac[N], ifac[N];
 
 int add(int a, int b) {
     a += b;
-    return a >= mod ? a - mod : a;
+    return a >= MOD ? a - MOD : a;
 }
 
 int sub(int a, int b) {
     a -= b;
-    return a < 0 ? a + mod : a;
+    return a < 0 ? a + MOD : a;
 }
 
 int mul(long long a, int b) {
     a *= b;
-    return a >= mod ? a % mod : a;
+    return a >= MOD ? a % MOD : a;
 }
 
 int mpow(int a, int b) {
@@ -31,7 +31,7 @@ int mpow(int a, int b) {
 }
 
 int inv(int x) {
-    return mpow(x, mod - 2);
+    return mpow(x, MOD - 2);
 }
 
 void build() {

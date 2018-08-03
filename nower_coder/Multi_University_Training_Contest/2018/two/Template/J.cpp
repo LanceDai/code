@@ -36,15 +36,15 @@ typedef vector<int> VI;
 const lod pi = acos(-1);
 const int oo = 1 << 30;
 const LL OO = 1e18;
-const int mod = 1e9 + 7;
+const int MOD = 1e9 + 7;
 
 const int N = 1e6 + 100;
 
 int qpow(int x, int y) {
     int ans = 1;
     while (y) {
-        if (y & 1) ans = 1LL * ans * x % mod;
-        x = 1LL * x * x % mod;
+        if (y & 1) ans = 1LL * ans * x % MOD;
+        x = 1LL * x * x % MOD;
         y >>= 1;
     }
     return ans;

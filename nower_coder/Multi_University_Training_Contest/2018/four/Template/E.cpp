@@ -5,14 +5,14 @@
 
 using int64 = long long;
 
-constexpr int mod = 1e9 + 7;
+constexpr int MOD = 1e9 + 7;
 constexpr int N = 1e5 + 10;
 
 int64 pow_mod(int64 a, int64 n) {
     int64 r = 1;
     for (; n; n >>= 1) {
-        if (n & 1) r = r * a % mod;
-        a = a * a % mod;
+        if (n & 1) r = r * a % MOD;
+        a = a * a % MOD;
     }
     return r;
 }
@@ -36,17 +36,17 @@ struct SegmentTree {
         int64 mul1, mul2;
 
         void set(int64 x) {
-            mul1 = mul1 * x % mod;
-            sum1 = sum1 * x % mod;
-            mul2 = mul2 * x % mod;
-            sum2 = sum2 * x % mod;
-            tag = tag * x % mod;
+            mul1 = mul1 * x % MOD;
+            sum1 = sum1 * x % MOD;
+            mul2 = mul2 * x % MOD;
+            sum2 = sum2 * x % MOD;
+            tag = tag * x % MOD;
         }
     } u[N << 2];
 
     void update(int o) {
-        u[o].sum1 = (u[o << 1].sum1 + u[o << 1 | 1].sum1) % mod;
-        u[o].sum2 = (u[o << 1].sum2 + u[o << 1 | 1].sum2) % mod;
+        u[o].sum1 = (u[o << 1].sum1 + u[o << 1 | 1].sum1) % MOD;
+        u[o].sum2 = (u[o << 1].sum2 + u[o << 1 | 1].sum2) % MOD;
     }
 
     void build(int o, int l, int r, point *p) {
@@ -54,7 +54,7 @@ struct SegmentTree {
         u[o].tag = 1;
         if (l + 1 == r) {
             u[o].mul1 = p[l].u;
-            u[o].mul2 = p[l].u * p[l].x % mod;
+            u[o].mul2 = p[l].u * p[l].x % MOD;
             return;
         }
         int m = (l + r) >> 1;
@@ -107,20 +107,20 @@ struct FenwickTree {
     }
 
     void set(int x, int64 v) {
-        for (; x <= n; x += ~x & x + 1) u[x] = u[x] * v % mod;
+        for (; x <= n; x += ~x & x + 1) u[x] = u[x] * v % MOD;
     }
 
     int64 get(int x, int64 r = 1) {
-        for (; x >= 0; x -= ~x & x + 1) r = r * u[x] % mod;
+        for (; x >= 0; x -= ~x & x + 1) r = r * u[x] % MOD;
         return r;
     }
 
     void setr(int x, int64 v) {
-        for (; x >= 0; x -= ~x & x + 1) u[x] = u[x] * v % mod;
+        for (; x >= 0; x -= ~x & x + 1) u[x] = u[x] * v % MOD;
     }
 
     int64 getr(int x, int64 r = 1) {
-        for (; x <= n; x += ~x & x + 1) r = r * u[x] % mod;
+        for (; x <= n; x += ~x & x + 1) r = r * u[x] % MOD;
         return r;
     }
 } ft;
@@ -143,7 +143,7 @@ int64 solve(int l, int r) {
                 int o = idx[j];
                 int64 sum1 = st.u[1].sum1;
                 int64 sum2 = st.u[1].sum2;
-                ret += p[o].y % mod * ft.get(o - m) % mod * p[o].v % mod * (p[o].x * sum1 % mod - sum2 + mod) % mod;
+                ret += p[o].y % MOD * ft.get(o - m) % MOD * p[o].v % MOD * (p[o].x * sum1 % MOD - sum2 + MOD) % MOD;
             }
         }
         for (int k = i; k < j; ++k) {
@@ -158,7 +158,7 @@ int64 solve(int l, int r) {
             }
         }
     }
-    return (ret + acc) % mod;
+    return (ret + acc) % MOD;
 }
 
 int main() {
@@ -175,21 +175,21 @@ int main() {
         for (int i = 0, j; i < nn; i = j) {
             int64 a = 1, b = 1, ib;
             for (j = i; j < nn && p[i].x == p[j].x && p[i].y == p[j].y; ++j) {
-                a = a * (p[j].b - p[j].a) % mod;
-                b = b * p[j].b % mod;
+                a = a * (p[j].b - p[j].a) % MOD;
+                b = b * p[j].b % MOD;
             }
-            ib = pow_mod(b, mod - 2);
-            a = (b - a + mod) % mod;
+            ib = pow_mod(b, MOD - 2);
+            a = (b - a + MOD) % MOD;
             p[n] = p[i];
-            p[n].a = a * ib % mod;
-            p[n].b = (b - a + mod) * ib % mod;
+            p[n].a = a * ib % MOD;
+            p[n].b = (b - a + MOD) * ib % MOD;
             ++n;
         }
         for (int i = 0, j; i < n; i = j) {
             int64 mul = 1;
             for (j = i; j < n && p[i].x == p[j].x; ++j) {
-                p[j].u = mul * p[j].a % mod;
-                mul = mul * p[j].b % mod;
+                p[j].u = mul * p[j].a % MOD;
+                mul = mul * p[j].b % MOD;
             }
         }
         std::vector<int> idx(n);
@@ -201,7 +201,7 @@ int main() {
         int64 ret = 0;
         for (int i = 0; i < n; ++i) {
             int o = idx[i];
-            p[o].v = p[o].a * ft.getr(o) % mod;
+            p[o].v = p[o].a * ft.getr(o) % MOD;
             ft.setr(o, p[o].b);
         }
         std::sort(p, p + n);
@@ -216,11 +216,11 @@ int main() {
         int64 all = 1;
         for (int i = 0, j; i < n; i = j) {
             for (j = i; j < n && p[idx[i]].y == p[idx[j]].y; ++j) {
-                ret += all * p[idx[j]].x % mod * p[idx[j]].y % mod * p[idx[j]].a % mod;
-                all = all * p[idx[j]].b % mod;
+                ret += all * p[idx[j]].x % MOD * p[idx[j]].y % MOD * p[idx[j]].a % MOD;
+                all = all * p[idx[j]].b % MOD;
             }
         }
-        printf("%lld\n", ret % mod);
+        printf("%lld\n", ret % MOD);
     }
     return 0;
 }

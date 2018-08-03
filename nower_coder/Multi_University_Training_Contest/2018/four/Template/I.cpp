@@ -3,7 +3,7 @@
 #include <cassert>
 #include <functional>
 
-const int N = 3e5 + 10, inf = 1e9;
+const int N = 3e5 + 10, INF = 1e9;
 
 struct node {
     int value;
@@ -35,13 +35,13 @@ std::vector<int> solve(std::vector<int> &a, std::vector<int> &b, std::vector<int
     for (int i = 0; i < n * 3; ++i) {
         for (int x = 0; x < 3; ++x) {
             for (int y = 0; y < 3; ++y) {
-                dp[i][x][y] = inf;
+                dp[i][x][y] = INF;
                 prev[i][x][y] = -1;
             }
         }
     }
     auto update = [&](int &x, int &y, int s, int t) {
-        if (s >= inf) return;
+        if (s >= INF) return;
         if (s < x) x = s, y = t;
     };
     dp[0][1][0] = 2;
@@ -59,7 +59,7 @@ std::vector<int> solve(std::vector<int> &a, std::vector<int> &b, std::vector<int
             if (j == 1) update(dp[i][1][j + 1], prev[i][1][j + 1], dp[i - 1][0][j] + 2, j);
         }
     }
-    cost = inf;
+    cost = INF;
     int x, y;
     if (dp[n * 3 - 2][1][2] < cost) {
         cost = dp[n * 3 - 2][1][2];
@@ -69,8 +69,8 @@ std::vector<int> solve(std::vector<int> &a, std::vector<int> &b, std::vector<int
         cost = dp[n * 3 - 2][0][1];
         x = 0, y = 1;
     }
-    if (cost == inf) return {};
-    assert(cost != inf);
+    if (cost == INF) return {};
+    assert(cost != INF);
     // s1 is the start point
     node *s1 = nullptr, *t1 = nullptr, *s2 = nullptr, *t2 = nullptr;
 
@@ -195,7 +195,7 @@ int main() {
             for (auto &&x: t) x = n * 3 - 1 - x;
             s = t;
         }
-        assert(cost_s != inf);
+        assert(cost_s != INF);
         for (auto &&x: s) printf("%d ", x + 1);
         puts("");
     }

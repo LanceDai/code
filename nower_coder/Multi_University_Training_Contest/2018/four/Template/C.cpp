@@ -3,7 +3,7 @@
 
 using int64 = long long;
 
-const int mod = 1e9 + 7;
+const int MOD = 1e9 + 7;
 
 int64 dp[80][140][2];
 int64 prefix[80];
@@ -22,8 +22,8 @@ void prepare() {
     for (int len = 1; len <= 60; ++len) {
         for (int sum = 0; sum < 140; ++sum) {
             for (int last = 0; last < 2; ++last) {
-                prefix[len] += dp[len][sum][last] % mod * std::abs(sum - 70);
-                prefix[len] %= mod;
+                prefix[len] += dp[len][sum][last] % MOD * std::abs(sum - 70);
+                prefix[len] %= MOD;
             }
         }
     }
@@ -51,7 +51,7 @@ int main() {
                 }
                 for (int sum = -i; sum <= i; ++sum) {
                     int64 cnt = dp[i + 1][sum + 70][0] + dp[i + 1][sum + 70][1];
-                    ret += cnt % mod * std::abs(tmp + sum);
+                    ret += cnt % MOD * std::abs(tmp + sum);
                 }
             }
             if (last != -1) {
@@ -61,7 +61,7 @@ int main() {
             last = o;
         }
         ret += std::abs(now);
-        printf("%lld\n", ret % mod);
+        printf("%lld\n", ret % MOD);
     }
     return 0;
 }

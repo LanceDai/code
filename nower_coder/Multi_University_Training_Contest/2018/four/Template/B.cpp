@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <vector>
 
-const int inf = 1e9;
+const int INF = 1e9;
 
 struct SegmentTree {
     std::vector<int> u;
@@ -10,7 +10,7 @@ struct SegmentTree {
 
     void init(int n) { //[0, n)
         this->n = n;
-        u.assign(n * 2, inf);
+        u.assign(n * 2, INF);
     }
 
     void set(int p, int v) {
@@ -21,7 +21,7 @@ struct SegmentTree {
     }
 
     int ask(int l, int r) { // [l, r)
-        int res = inf;
+        int res = INF;
         for (l += n, r += n; l < r; l >>= 1, r >>= 1) {
             if (l & 1) res = std::min(res, u[l++]);
             if (r & 1) res = std::min(res, u[--r]);
@@ -50,7 +50,7 @@ int main() {
         }
         std::sort(s.begin(), s.end());
         std::vector<SegmentTree> st(n);
-        int ret = inf;
+        int ret = INF;
         for (int i = 0; i < n; ++i) {
 //      printf("start %d %d: \n", s[i].l, s[i].r);
             st[i].init(m + 1);
@@ -60,7 +60,7 @@ int main() {
                 for (int j = 0; j < i; ++j)
                     if (s[j].r + 1 >= s[i].l) {
                         int now = st[j].ask(s[j].l - 1, s[i].l);
-                        if (now == inf) continue;
+                        if (now == INF) continue;
                         if (s[j].r + 1 == s[i].l) now = std::max(now, s[j].w);
                         else now = std::max(now, s[j].w + s[i].w);
 //          printf("  update: %d %d %d\n", s[j].l, s[j].r, now);
@@ -73,7 +73,7 @@ int main() {
                 ret = std::min(ret, now);
             }
         }
-        if (ret == inf) ret = -1;
+        if (ret == INF) ret = -1;
         printf("%d\n", ret);
     }
     return 0;

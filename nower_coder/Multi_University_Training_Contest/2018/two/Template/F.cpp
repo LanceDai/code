@@ -36,13 +36,13 @@ typedef vector<int> VI;
 const lod pi = acos(-1);
 const int oo = 1 << 30;
 const LL OO = 1e18;
-const int mod = 1e9 + 7;
+const int MOD = 1e9 + 7;
 
 int qpow(int x, int y) {
     int ans = 1;
     while (y) {
-        if (y & 1) ans = 1LL * ans * x % mod;
-        x = 1LL * x * x % mod;
+        if (y & 1) ans = 1LL * ans * x % MOD;
+        x = 1LL * x * x % MOD;
         y >>= 1;
     }
     return ans;
@@ -116,11 +116,11 @@ struct P {
 
     inline void readdb() { scanf(dbformat dbformat, &x, &y); }
 
-    inline P rot90() { return (P) {-y, x}; }
+    inline MOD rot90() { return (MOD) {-y, x}; }
 
-    inline P rot(db r) {
+    inline MOD rot(db r) {
         db Sin = sin(r), Cos = cos(r);
-        return (P) {x * Cos - y * Sin, x * Sin + y * Cos};
+        return (MOD) {x * Cos - y * Sin, x * Sin + y * Cos};
     }
 
     inline void uni() {
@@ -130,47 +130,47 @@ struct P {
     }
 };
 
-inline bool operator<(const P &a, const P &b) { return dcmp(a.x - b.x) ? a.x < b.x : a.y < b.y; }
+inline bool operator<(const MOD &a, const MOD &b) { return dcmp(a.x - b.x) ? a.x < b.x : a.y < b.y; }
 
-inline bool operator==(const P &a, const P &b) { return !dcmp(a.x - b.x) && !dcmp(a.y - b.y); }
+inline bool operator==(const MOD &a, const MOD &b) { return !dcmp(a.x - b.x) && !dcmp(a.y - b.y); }
 
-inline bool operator!=(const P &a, const P &b) { return dcmp(a.x - b.x) || dcmp(a.y - b.y); }
+inline bool operator!=(const MOD &a, const MOD &b) { return dcmp(a.x - b.x) || dcmp(a.y - b.y); }
 
-inline P operator+(const P &a, const P &b) { return (P) {a.x + b.x, a.y + b.y}; }
+inline MOD operator+(const MOD &a, const MOD &b) { return (MOD) {a.x + b.x, a.y + b.y}; }
 
-inline P operator-(const P &a, const P &b) { return (P) {a.x - b.x, a.y - b.y}; }
+inline MOD operator-(const MOD &a, const MOD &b) { return (MOD) {a.x - b.x, a.y - b.y}; }
 
-inline P operator*(const P &p, const db &t) { return (P) {p.x * t, p.y * t}; }
+inline MOD operator*(const MOD &p, const db &t) { return (MOD) {p.x * t, p.y * t}; }
 
-inline P operator/(const P &p, const db &t) { return (P) {p.x / t, p.y / t}; }
+inline MOD operator/(const MOD &p, const db &t) { return (MOD) {p.x / t, p.y / t}; }
 
-inline db operator*(const P &a, const P &b) { return a.x * b.y - a.y * b.x; }
+inline db operator*(const MOD &a, const MOD &b) { return a.x * b.y - a.y * b.x; }
 
-inline db dot(const P &a, const P &b) { return a.x * b.x + a.y * b.y; }
+inline db dot(const MOD &a, const MOD &b) { return a.x * b.x + a.y * b.y; }
 
-inline db dis_point2(const P &a, const P &b) { return (a - b).mo2(); }
+inline db dis_point2(const MOD &a, const MOD &b) { return (a - b).mo2(); }
 
-inline db dis_point(const P &a, const P &b) { return (a - b).mo(); }
+inline db dis_point(const MOD &a, const MOD &b) { return (a - b).mo(); }
 
 struct line {
-    P a, b;
+    MOD a, b;
 
     inline db angle() { return (b - a).angle(); }
 };
 
-inline bool in_point_line(const P &p, const line &l) {//�е���ֱ����
+inline bool in_point_line(const MOD &p, const line &l) {//�е���ֱ����
     return dcmp((p - l.a) * (l.b - l.a)) == 0;
 }
 
-inline bool in_halfplane(const P &p, const line &l) {//�е��ڰ�ƽ����
+inline bool in_halfplane(const MOD &p, const line &l) {//�е��ڰ�ƽ����
     return (p - l.a) * (l.b - l.a) <= eps;
 }
 
-inline bool in_point_segment(const P &p, const line &l) {//�е����߶���
+inline bool in_point_segment(const MOD &p, const line &l) {//�е����߶���
     return in_point_line(p, l) && dcmp(dot(p - l.a, l.b - l.a)) >= 0 && dcmp(dot(p - l.b, l.a - l.b)) >= 0;
 }
 
-inline db dis_point_line(const P &p, const line &l) {//�㵽ֱ�߾���
+inline db dis_point_line(const MOD &p, const line &l) {//�㵽ֱ�߾���
     return fabs((p - l.a) * (l.b - l.a)) / dis_point(l.a, l.b);
 }
 
@@ -179,13 +179,13 @@ inline bool cross_segment_segment(const line &a, const line &b) {//�ж���
            dcmp((a.a - b.a) * (b.b - b.a)) * dcmp((a.b - b.a) * (b.b - b.a)) != 1;
 }
 
-inline P cross_line_line(const line &a, const line &b) {//ֱ�߽���
+inline MOD cross_line_line(const line &a, const line &b) {//ֱ�߽���
     db s1 = (b.a - a.a) * (a.b - a.a);
     db s2 = (a.b - a.a) * (b.b - a.a);
     return b.a + (b.b - b.a) * (s1 / (s1 + s2));
 }
 
-inline db dis_point_segment(const P &p, const line &l) {//�㵽�߶ξ���
+inline db dis_point_segment(const MOD &p, const line &l) {//�㵽�߶ξ���
     if (dot(p - l.a, l.b - l.a) <= 0) return dis_point(p, l.a);
     if (dot(p - l.b, l.a - l.b) <= 0) return dis_point(p, l.b);
     return dis_point_line(p, l);
@@ -198,16 +198,16 @@ inline db dis_segment_segment(const line &a, const line &b) {//�߶����
                min(dis_point_segment(b.a, a), dis_point_segment(b.b, a)));
 }
 
-inline P proj_point_line(const P &p, const line &l) {//����ֱ���ϵ�ͶӰ
+inline MOD proj_point_line(const MOD &p, const line &l) {//����ֱ���ϵ�ͶӰ
     return l.a + (l.b - l.a) * (dot(p - l.a, l.b - l.a) / dis_point2(l.b, l.a));
 }
 
 struct circle {
-    P o;
+    MOD o;
     db r;
 };
 
-inline int in_point_cirlce(const P &p, const circle &c) {//����Բ��λ�� 1:�ⲿ 0:Բ�� -1:Բ��
+inline int in_point_cirlce(const MOD &p, const circle &c) {//����Բ��λ�� 1:�ⲿ 0:Բ�� -1:Բ��
     return dcmp(dis_point(p, c.o) - c.r);
 }
 
@@ -223,25 +223,25 @@ inline int in_circle_circle(const circle &a, const circle &b) {//��Բ���
     return dcmp(dis + b.r - a.r) + 1;
 }
 
-inline pair<P, P> cross_line_circle(const line &l, const circle &c) {//��ֱ�ߺ�Բ�Ľ���
-    P o = proj_point_line(c.o, l);
-    P d = (l.b - l.a);
+inline pair<MOD, MOD> cross_line_circle(const line &l, const circle &c) {//��ֱ�ߺ�Բ�Ľ���
+    MOD o = proj_point_line(c.o, l);
+    MOD d = (l.b - l.a);
     d.uni();
     db len = sqrt(c.r * c.r - dis_point2(c.o, o));
     d = d * len;
     return make_pair(o - d, o + d);
 }
 
-inline pair<P, P> cross_circle_circle(const circle &a, const circle &b) {//����Բ�Ľ���
+inline pair<MOD, MOD> cross_circle_circle(const circle &a, const circle &b) {//����Բ�Ľ���
     db len = dis_point2(a.o, b.o);
     db t = a.r * a.r + len - b.r * b.r;
-    P e = a.o + (b.o - a.o) * (t / 2 / len);
+    MOD e = a.o + (b.o - a.o) * (t / 2 / len);
     db p = sqrt(a.r * a.r - t);
-    P d = (b.o - a.o).rot90() * (p / sqrt(len));
+    MOD d = (b.o - a.o).rot90() * (p / sqrt(len));
     return make_pair(e + d, e - d);
 }
 
-inline pair<P, P> proj_point_circle(P p, const circle &c) {//��㵽Բ���е�
+inline pair<MOD, MOD> proj_point_circle(MOD p, const circle &c) {//��㵽Բ���е�
     db dis2 = dis_point2(p, c.o);
     db h = c.r * c.r * (dis2 - c.r * c.r) / dis2;
     db w = sqrt(c.r * c.r - h);
@@ -253,24 +253,24 @@ inline pair<P, P> proj_point_circle(P p, const circle &c) {//��㵽Բ���
 
 inline pair<line, line> proj_circle_circle_out(const circle &a, const circle &b) {//������Բ���⹫����
     if (!dcmp(a.r - b.r)) {
-        P p = (b.o - a.o).rot90();
+        MOD p = (b.o - a.o).rot90();
         p.uni();
         return make_pair((line) {a.o + p * a.r, b.o + p * b.r}, (line) {a.o - p * a.r, b.o - p * b.r});
     }
     if (a.r < b.r)
         return proj_circle_circle_out(b, a);
-    pair<P, P> p = proj_point_circle(b.o, (circle) {a.o, a.r - b.r});
-    P d1 = (p.first - a.o) * (b.r / (a.r - b.r));
-    P d2 = (p.second - a.o) * (b.r / (a.r - b.r));
+    pair<MOD, MOD> p = proj_point_circle(b.o, (circle) {a.o, a.r - b.r});
+    MOD d1 = (p.first - a.o) * (b.r / (a.r - b.r));
+    MOD d2 = (p.second - a.o) * (b.r / (a.r - b.r));
     return make_pair((line) {p.first + d1, b.o + d1}, (line) {p.first + d2, b.o + d2});
 }
 
 inline pair<line, line> proj_circle_circle_in(const circle &a, const circle &b) {//������Բ���ڹ�����
     if (a.r < b.r)
         return proj_circle_circle_in(b, a);
-    pair<P, P> p = proj_point_circle(b.o, (circle) {a.o, a.r + b.r});
-    P d1 = (p.first - a.o) * (b.r / (a.r + b.r));
-    P d2 = (p.first - a.o) * (b.r / (a.r + b.r));
+    pair<MOD, MOD> p = proj_point_circle(b.o, (circle) {a.o, a.r + b.r});
+    MOD d1 = (p.first - a.o) * (b.r / (a.r + b.r));
+    MOD d2 = (p.first - a.o) * (b.r / (a.r + b.r));
     return make_pair((line) {p.first - d1, b.o - d1}, (line) {p.second - d2, b.o - d2});
 }
 
@@ -328,13 +328,13 @@ namespace dinic {
 }
 
 const int N = 1010;
-P a[N], b[20];
+MOD a[N], b[20];
 int rid[20];
 bitset<N> bit[N];
 
 int main() {
     int n, m, T, i, x, t, lim, s, k, id;
-    P o;
+    MOD o;
     gi(n), gi(m), gi(T);
     dinic::init(n + m + 1);
     for (i = 1; i <= n; i++) a[i].readint(), gi(x), dinic::link(0, i, x), bit[i][i] = 1;
