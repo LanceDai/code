@@ -9,7 +9,7 @@ int main() {
     freopen("/home/lance/CLionProjects/code/HDUOJ/Multi-University_Training_Contest/2018/4/input.txt", "r+", stdin);
 //    freopen("data.out", "w+", stdout);
 #endif
-    IO;
+    ios_base::sync_with_stdio(0), cin.tie(0);
     LL t;
     cin >> t;
     while (t--) {

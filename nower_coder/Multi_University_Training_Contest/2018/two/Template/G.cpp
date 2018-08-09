@@ -7,15 +7,15 @@
 
 using namespace std;
 
-const int N = 500050;
+const int MAXN = 500050;
 
 typedef long long int64;
 
-int n, x[N], a[N];
-int64 T, s[N];
+int n, x[MAXN], query[MAXN];
+int64 T, s[MAXN];
 
 int64 sum(int l, int lc, int r, int rc) {
-    return l == r ? rc - lc : s[r - 1] - s[l] + a[l] - lc + rc;
+    return l == r ? rc - lc : s[r - 1] - s[l] + query[l] - lc + rc;
 }
 
 bool check(int64 need) {
@@ -23,7 +23,7 @@ bool check(int64 need) {
 
     int64 cur = 0, sa = 0;
     for (int i = 1; i <= n; ++i) {
-        if (sa + a[i] <= need) sa += a[i], cur += d(1, i) * a[i];
+        if (sa + query[i] <= need) sa += query[i], cur += d(1, i) * query[i];
         else {
             r = i, rc = need - sa + 1, cur += d(1, i) * (rc - 1);
             break;
@@ -34,10 +34,10 @@ bool check(int64 need) {
     for (int i = 2; i <= n; ++i) {
         cur += d(i - 1, i) * (sum(l, lc, i, 1) - sum(i, 1, r, rc));
         while (r <= n && d(l, i) > d(i, r)) {
-            int z = min(a[l] - lc + 1, a[r] - rc + 1);
+            int z = min(query[l] - lc + 1, query[r] - rc + 1);
             cur += (d(i, r) - d(l, i)) * z;
-            if (lc += z, lc > a[l]) ++l, lc = 1;
-            if (rc += z, rc > a[r]) ++r, rc = 1;
+            if (lc += z, lc > query[l]) ++l, lc = 1;
+            if (rc += z, rc > query[r]) ++r, rc = 1;
         }
         if (cur <= T) return 1;
     }
@@ -50,7 +50,7 @@ int main() {
     assert(1 <= T && T <= 1e18);
     T /= 2;
     for (int i = 1; i <= n; ++i) x[i] = getint(), assert(1 <= n && n <= n), assert(i == 1 || x[i] > x[i - 1]);
-    for (int i = 1; i <= n; ++i) a[i] = getint(), assert(0 <= a[i] && a[i] <= 1e4), s[i] = s[i - 1] + a[i];
+    for (int i = 1; i <= n; ++i) query[i] = getint(), assert(0 <= query[i] && query[i] <= 1e4), s[i] = s[i - 1] + query[i];
 
     int64 ll = 0, rr = s[n];
     while (ll < rr) {

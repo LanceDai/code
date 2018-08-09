@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-const int N = 5140;
+const int MAXN = 5140;
 const int MOD = 1000000007;
-int fac[N], ifac[N];
+int fac[MAXN], ifac[MAXN];
 
 int add(int a, int b) {
     a += b;
@@ -36,7 +36,7 @@ int inv(int x) {
 
 void build() {
     fac[0] = ifac[0] = 1;
-    for (int i = 1; i < N; i++) {
+    for (int i = 1; i < MAXN; i++) {
         fac[i] = mul(fac[i - 1], i);
         ifac[i] = inv(fac[i]);
     }
@@ -47,8 +47,8 @@ inline int C(int a, int b) {
     return mul(fac[a], mul(ifac[b], ifac[a - b]));
 }
 
-int n, par[N];
-vector<int> v[N];
+int n, par[MAXN];
+vector<int> v[MAXN];
 
 void gen(const vector<int> &vv) {
     assert(vv.size() > 2u);

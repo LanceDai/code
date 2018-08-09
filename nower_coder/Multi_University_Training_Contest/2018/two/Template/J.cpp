@@ -28,7 +28,7 @@ inline bool upmax(T &x, T y) { return x < y ? x = y, 1 : 0; }
 
 typedef unsigned int u32;
 typedef long long LL;
-typedef unsigned long long ULL;
+typedef unsigned long long UI;
 typedef long double lod;
 typedef pair<int, int> PR;
 typedef vector<int> VI;
@@ -38,7 +38,7 @@ const int oo = 1 << 30;
 const LL OO = 1e18;
 const int MOD = 1e9 + 7;
 
-const int N = 1e6 + 100;
+const int MAXN = 1e6 + 100;
 
 int qpow(int x, int y) {
     int ans = 1;
@@ -109,11 +109,11 @@ using io::gs;
 using io::ps;
 using io::print;
 
-int a[N], s[N], group[N];
+int query[MAXN], s[MAXN], group[MAXN];
 #define y1 y_1
-int x1[N], y1[N], x2[N], y2[N], tp[N];
+int x1[MAXN], y1[MAXN], x2[MAXN], y2[MAXN], tp[MAXN];
 int n, m;
-bool die[N];
+bool die[MAXN];
 #define id(x, y) (((x)-1)*m+(y))
 
 void add(int k, int *f) {
@@ -137,7 +137,7 @@ int main() {
     int i, v, T;
     gi(n), gi(m), gi(T);
     for (i = 1; i <= n * m; i++)
-        gi(a[i]);
+        gi(query[i]);
     for (i = 1; i <= T; i++) {
         gi(x1[i]), gi(y1[i]), gi(x2[i]), gi(y2[i]), gi(tp[i]);
         add(i, s);
@@ -151,7 +151,7 @@ int main() {
             }
         work(group);
         for (i = 1; i <= n * m; i++)
-            if (a[i] >> v & 1) {
+            if (query[i] >> v & 1) {
                 if (group[i] != s[i]) {
                     die[i] = true;
                 }

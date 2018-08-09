@@ -7,7 +7,7 @@
 
 using namespace std;
 
-typedef unsigned long long ULL;
+typedef unsigned long long UI;
 typedef long long LL;
 typedef pair<int, int> pi;
 
@@ -59,11 +59,11 @@ bool chkmin(T &a, T b) { return a > b ? a = b, true : false; }
 template<class T>
 bool chkmax(T &a, T b) { return a < b ? a = b, true : false; }
 
-const int N = 400005;
+const int MAXN = 400005;
 
-int n, w[N];
-LL group[N][4], g[N][4];
-vector<int> e[N];
+int n, w[MAXN];
+LL group[MAXN][4], g[MAXN][4];
+vector<int> e[MAXN];
 
 void dfs(int u, int fa = 0) {
     LL a[4][3] = {0}, b[4][3] = {0}, c[4][3] = {0};

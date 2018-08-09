@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
 
 using namespace std;
-const int N = 100050;
+const int MAXN = 100050;
 struct ss{
     int x, cnt, y;
-} f[N];
+} f[MAXN];
 
 bool cmp(ss p, ss q) {
     if (p.cnt == q.cnt) {
@@ -13,7 +13,7 @@ bool cmp(ss p, ss q) {
     return p.cnt > q.cnt;
 }
 
-int tmp[N];
+int tmp[MAXN];
 map<int, int> char_map;
 
 int main() {

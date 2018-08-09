@@ -28,7 +28,7 @@ inline bool upmax(T &x, T y) { return x < y ? x = y, 1 : 0; }
 
 typedef unsigned int u32;
 typedef long long LL;
-typedef unsigned long long ULL;
+typedef unsigned long long UI;
 typedef long double lod;
 typedef pair<int, int> PR;
 typedef vector<int> VI;
@@ -38,7 +38,7 @@ const int oo = 1 << 30;
 const LL OO = 2e18;
 const int MOD = 1e9 + 7;
 
-const int N = 1e5 + 100;
+const int MAXN = 1e5 + 100;
 
 int qpow(int x, int y) {
     int ans = 1;
@@ -62,8 +62,8 @@ LL operator*(const Q &a, const Q &b) { return 1LL * a.x * b.y - 1LL * a.y * b.x;
 lod K(const Q &a, const Q &b) { return ((lod) b.y - a.y) / ((lod) b.x - a.x); }
 
 struct Convexhull {
-    Q p[N], cur[N];
-    lod ans[N];
+    Q p[MAXN], cur[MAXN];
+    lod ans[MAXN];
     set<int> G, O;
 
     void work() {

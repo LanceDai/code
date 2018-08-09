@@ -4,7 +4,7 @@ typedef long long LL;
 using namespace std;
 LL n, m, q, l, r, p;
 vector<LL> d;
-vector<LL> a;
+vector<LL> query;
 
 inline int read() {
     char c = getchar();
@@ -22,10 +22,10 @@ int main() {
     cin.tie(nullptr);
     n = read();
     m = read();
-    a.resize(n + 2ULL);
+    query.resize(n + 2ULL);
     d.resize(n + 2ULL);
     for (int i = 1; i <= n; ++i) {
-        a[i] = read();
+        query[i] = read();
     }
     while (m--) {
         q = read();
@@ -38,10 +38,10 @@ int main() {
     }
     for (int i = 1; i <= n; ++i) {
         d[i] += d[i - 1];
-        a[i] += a[i - 1] + d[i];
+        query[i] += query[i - 1] + d[i];
     }
     l = read();
     r = read();
-    cout << a[r] - a[l - 1] << endl;
+    cout << query[r] - query[l - 1] << endl;
     return 0;
 }

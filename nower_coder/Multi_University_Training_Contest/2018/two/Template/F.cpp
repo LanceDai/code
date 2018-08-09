@@ -28,7 +28,7 @@ inline bool upmax(T &x, T y) { return x < y ? x = y, 1 : 0; }
 
 typedef unsigned int u32;
 typedef long long LL;
-typedef unsigned long long ULL;
+typedef unsigned long long UI;
 typedef long double lod;
 typedef pair<int, int> PR;
 typedef vector<int> VI;
@@ -327,17 +327,17 @@ namespace dinic {
     }
 }
 
-const int N = 1010;
-MOD a[N], b[20];
+const int MAXN = 1010;
+MOD query[MAXN], b[20];
 int rid[20];
-bitset<N> bit[N];
+bitset<MAXN> bit[MAXN];
 
 int main() {
     int n, m, T, i, x, t, lim, s, k, id;
     MOD o;
     gi(n), gi(m), gi(T);
     dinic::init(n + m + 1);
-    for (i = 1; i <= n; i++) a[i].readint(), gi(x), dinic::link(0, i, x), bit[i][i] = 1;
+    for (i = 1; i <= n; i++) query[i].readint(), gi(x), dinic::link(0, i, x), bit[i][i] = 1;
     for (i = 1; i <= T; i++) b[i].readint(), gi(rid[i]);
     for (id = 1; id <= m; id++) {
         o.readint();
@@ -347,7 +347,7 @@ int main() {
         while (s--) {
             gi(k);
             for (i = 1; i <= T; i++)
-                if (dis_point_segment(b[i], (line) {o, a[k]}) <= rid[i] + eps)
+                if (dis_point_segment(b[i], (line) {o, query[k]}) <= rid[i] + eps)
                     break;
             if (i > T) {
                 if (t) bit[k] |= bit[t];
@@ -355,7 +355,7 @@ int main() {
             }
         }
         if (t) {
-            for (k = bit[t]._Find_first(); k < N; k = bit[t]._Find_next(k))
+            for (k = bit[t]._Find_first(); k < MAXN; k = bit[t]._Find_next(k))
                 dinic::link(k, n + id, OO);
             dinic::link(n + id, n + m + 1, lim);
         }

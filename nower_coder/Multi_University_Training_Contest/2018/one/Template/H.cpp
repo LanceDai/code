@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 
-const int N = 100000;
+const int MAXN = 100000;
 
 struct Solver
 {

@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-const int N = 5140;
+const int MAXN = 5140;
 const int MOD = 1000000007;
 
 inline int add(int a, int b) {
@@ -29,8 +29,8 @@ inline int mpow(int a, int b) {
     return r;
 }
 
-int n, k, d, inq[N], tg[N], stmp;
-vector<int> v[N];
+int n, k, d, inq[MAXN], tg[MAXN], stmp;
+vector<int> v[MAXN];
 
 int go(int now, int prt, int dep) {
     if (tg[now] != stmp) return 0;

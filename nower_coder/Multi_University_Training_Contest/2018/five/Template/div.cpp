@@ -77,22 +77,22 @@ struct bign {
         for (int i = len - 1; i >= 0; i--)printf("%d", a[i]);
         printf("\n");
     }
-} a, u, v, ans;
+} query, u, v, ans;
 
 int cnt = 0;
 
 void Main() {
     scanf("%s", s);
-    a = s;
+    query = s;
     u = 0, v = 2;
-    while (v < a) {
+    while (v < query) {
         bign w = v * 6 - u;
         u = v;
         v = w;
     }
     ans = v;
     u = 0, v = 6;
-    while (v < a) {
+    while (v < query) {
         bign w = v * 14 - u;
         u = v;
         v = w;

@@ -18,7 +18,7 @@ inline int mul(LL a, int b, int mod) {
     return a >= mod ? a % mod : a;
 }
 
-const int N = (1 << 20);
+const int MAXN = (1 << 20);
 const int K = 3;
 const int mods[K] = {1000000007, 1000000009, 1010102101};
 const int _BS = 13131;
@@ -57,11 +57,11 @@ struct Int {
     }
 };
 
-char c[N];
+char c[MAXN];
 Int BS(_BS);
 map<pair<LL, LL>, int> id;
 vector<int> ans;
-vector<int> v[N];
+vector<int> v[MAXN];
 
 int main() {
     scanf("%s", c);

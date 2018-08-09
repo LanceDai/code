@@ -18,8 +18,8 @@ int gi() {
 
 const int seed = 131;
 const int MOD = 1e9 + 7;
-const int N = 1e6 + 100;
-int h[N], L[N], nxt[N];
+const int MAXN = 1e6 + 100;
+int h[MAXN], L[MAXN], nxt[MAXN];
 
 inline int kmp(int *a, int n) {
     nxt[0] = 0;
@@ -40,13 +40,13 @@ inline int kmp(int *a, int n) {
     return n;
 }
 
-int Val[N], Q[N];
+int Val[MAXN], Q[MAXN];
 #define val(x, y) Val[((x)-1)*m+(y)]
 #define q(x, y) Q[((x)-1)*m+(y)]
-int l[N], r[N], n, m;
-int qq[N], w[N];
+int l[MAXN], r[MAXN], n, m;
+int qq[MAXN], w[MAXN];
 int key[26];
-char s[N];
+char s[MAXN];
 
 int main() {
     int i, j, a, b, ll, rr;

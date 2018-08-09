@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-const int N = 222;
+const int MAXN = 222;
 #define double long double
 typedef double type;
 typedef pair<type, type> Pt;
@@ -62,7 +62,7 @@ inline double myacos(double x) {
 
 const double eps = 1e-8;
 int n, m;
-Pt p[N], q[N], target;
+Pt p[MAXN], q[MAXN], target;
 const int K = 60;
 const int B = 60;
 

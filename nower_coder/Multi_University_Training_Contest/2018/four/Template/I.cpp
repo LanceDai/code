@@ -3,22 +3,22 @@
 #include <cassert>
 #include <functional>
 
-const int N = 3e5 + 10, INF = 1e9;
+const int MAXN = 3e5 + 10, INF = 1e9;
 
-struct node {
+struct Query {
     int value;
-    node *next;
-} pool[N * 4];
+    Query *next;
+} pool[MAXN * 4];
 
 int sz;
 
-node *new_node(int v) {
+Query *new_node(int v) {
     pool[sz].value = v;
     pool[sz].next = nullptr;
     return pool + (sz++);
 }
 
-int dp[N][3][3], prev[N][3][3];
+int dp[MAXN][3][3], prev[MAXN][3][3];
 
 std::vector<int> solve(std::vector<int> &a, std::vector<int> &b, std::vector<int> &c, int n, int &cost) {
     std::vector<int> cnt(n * 3);
@@ -72,32 +72,32 @@ std::vector<int> solve(std::vector<int> &a, std::vector<int> &b, std::vector<int
     if (cost == INF) return {};
     assert(cost != INF);
     // s1 is the start point
-    node *s1 = nullptr, *t1 = nullptr, *s2 = nullptr, *t2 = nullptr;
+    Query *s1 = nullptr, *t1 = nullptr, *s2 = nullptr, *t2 = nullptr;
 
-    auto make_chain_2 = [&](int x, int y) -> std::pair<node *, node *> {
-        node *s = new_node(x);
-        node *t = new_node(y);
+    auto make_chain_2 = [&](int x, int y) -> std::pair<Query *, Query *> {
+        Query *s = new_node(x);
+        Query *t = new_node(y);
         s->next = t;;
         return {s, t};
     };
 
-    auto make_chain_3 = [&](int x, int y) -> std::pair<node *, node *> {
-        node *u = new_node(x);
-        node *v = new_node(y);
-        node *w = new_node(x);
+    auto make_chain_3 = [&](int x, int y) -> std::pair<Query *, Query *> {
+        Query *u = new_node(x);
+        Query *v = new_node(y);
+        Query *w = new_node(x);
         u->next = v;
         v->next = w;
         return {u, w};
     };
 
-    auto front = [&](node *s, int x) -> node * {
-        node *t = new_node(x);
+    auto front = [&](Query *s, int x) -> Query * {
+        Query *t = new_node(x);
         t->next = s;
         return t;
     };
 
-    auto tail = [&](node *t, int x) -> node * {
-        node *p = new_node(x);
+    auto tail = [&](Query *t, int x) -> Query * {
+        Query *p = new_node(x);
         t->next = p;
         return p;
     };
@@ -156,7 +156,7 @@ std::vector<int> solve(std::vector<int> &a, std::vector<int> &b, std::vector<int
     std::vector<int> ret;
     std::vector<bool> mark(n * 3);
     int length = 0;
-    for (node *p = s1; p != nullptr; p = p->next) {
+    for (Query *p = s1; p != nullptr; p = p->next) {
         ++length;
         if (mark[p->value]) continue;
         if (pred[p->value] == -1) {

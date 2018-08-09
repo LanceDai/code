@@ -2,9 +2,9 @@
 
 using int64 = long long;
 
-const int N = 2e6 + 10;
+const int MAXN = 2e6 + 10;
 
-char s[N], buf[N * 2];
+char s[MAXN], buf[MAXN * 2];
 
 template<class T, class Compare = std::less<T>>
 class SchieberVishkinRMQ {

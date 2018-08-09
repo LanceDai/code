@@ -19,9 +19,9 @@
 #define pb push_back
 using namespace std;
 typedef long long LL;
-const int N = 210000;
-int n, a[N];
-int cnt[N];
+const int MAXN = 210000;
+int n, query[MAXN];
+int cnt[MAXN];
 
 void bitadd(int x, int v) {
     for (; x <= n; x += (x & (-x)))cnt[x] += v;
@@ -36,14 +36,14 @@ int bitsum(int x) {
 LL getinv() {
     LL ans = 0;
     for (int i = (int) 1; i <= (int) n / 2; i++) {
-        ans += i - 1 - bitsum(a[i] - 1);
-        bitadd(a[i], 1);
+        ans += i - 1 - bitsum(query[i] - 1);
+        bitadd(query[i], 1);
     }
     return ans;
 }
 
-int mi[N << 2];
-int cov[N << 2];
+int mi[MAXN << 2];
+int cov[MAXN << 2];
 
 void upd(int me) {
     mi[me] = min(mi[me << 1], mi[me << 1 | 1]) + cov[me];
@@ -72,18 +72,18 @@ void segadd(int me, int l, int r, int x, int y, int v) {
     upd(me);
 }
 
-int pos[N];
+int pos[MAXN];
 
 int main() {
     scanf("%d", &n);
     assert(n % 2 == 0);
     assert(2 <= n && n <= 200000);
     for (int i = (int) 1; i <= (int) n / 2; i++) {
-        scanf("%d", &a[i]);
-        assert(a[i] % 2 == 0);
-        assert(1 <= a[i] && a[i] <= n);
-        assert(!pos[a[i]]);
-        pos[a[i]] = i;
+        scanf("%d", &query[i]);
+        assert(query[i] % 2 == 0);
+        assert(1 <= query[i] && query[i] <= n);
+        assert(!pos[query[i]]);
+        pos[query[i]] = i;
     }
     LL ans = getinv();
     //return 0;

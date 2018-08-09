@@ -3,12 +3,12 @@
 using namespace std;
 typedef long long LL;
 const int mod = 998244353;
-const int N = 1 << 17;
+const int MAXN = 1 << 17;
 
-LL bit[N];
+LL bit[MAXN];
 
 void update(int x, LL v) {
-    for (int i = x; i < N; i += i & -i) (bit[i] *= v) %= mod;
+    for (int i = x; i < MAXN; i += i & -i) (bit[i] *= v) %= mod;
 }
 
 LL query(int x) {

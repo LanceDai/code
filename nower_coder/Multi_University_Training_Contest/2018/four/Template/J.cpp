@@ -6,18 +6,18 @@
 
 using pii = std::pair<int, int>;
 
-const int N = 2e5 + 10;
-int a[N], n, sz, rt;
-std::vector<int> edges[N << 1];
-int deg[N << 1], val[N << 1];
-int ls[N << 1], rs[N << 1], pt[N];
+const int MAXN = 2e5 + 10;
+int query[MAXN], n, sz, rt;
+std::vector<int> edges[MAXN << 1];
+int deg[MAXN << 1], val[MAXN << 1];
+int ls[MAXN << 1], rs[MAXN << 1], pt[MAXN];
 
 void build(int &o, int l, int r) {
     o = sz++;
     val[o] = -1;
     if (l + 1 == r) {
         pt[l] = o;
-        val[o] = a[l];
+        val[o] = query[l];
         return;
     }
     int m = (l + r) >> 1;
@@ -47,16 +47,16 @@ int main() {
         sz = 0;
         std::vector<int> sum(n + 1);
         for (int i = 0; i < n; ++i) {
-            scanf("%d", a + i);
-            sum[i] = (a[i] != -1);
+            scanf("%d", query + i);
+            sum[i] = (query[i] != -1);
         }
         for (int i = n - 1; i >= 0; --i) {
             sum[i] += sum[i + 1];
         }
         bool valid = true;
         for (int i = 0; i < n; ++i)
-            if (a[i] != -1 && a[i] % n != i) {
-                int x = a[i] % n;
+            if (query[i] != -1 && query[i] % n != i) {
+                int x = query[i] % n;
                 if (x < i) {
                     valid &= (sum[x] - sum[i] == i - x);
                 } else {
@@ -74,9 +74,9 @@ int main() {
         build(rt, 0, n);
         std::priority_queue<pii, std::vector<pii>, std::greater<pii>> queue;
         for (int i = 0; i < n; ++i)
-            if (a[i] != -1) {
-                if (a[i] % n != i) {
-                    int x = a[i] % n;
+            if (query[i] != -1) {
+                if (query[i] % n != i) {
+                    int x = query[i] % n;
                     if (x > i) {
                         ins(rt, 0, n, 0, i, pt[i]);
                         ins(rt, 0, n, x, n, pt[i]);
@@ -84,7 +84,7 @@ int main() {
                         ins(rt, 0, n, x, i, pt[i]);
                     }
                 } else {
-                    queue.emplace(a[i], pt[i]);
+                    queue.emplace(query[i], pt[i]);
                 }
             }
         std::vector<int> ret;

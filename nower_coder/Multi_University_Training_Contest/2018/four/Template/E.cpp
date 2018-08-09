@@ -6,7 +6,7 @@
 using int64 = long long;
 
 constexpr int MOD = 1e9 + 7;
-constexpr int N = 1e5 + 10;
+constexpr int MAXN = 1e5 + 10;
 
 int64 pow_mod(int64 a, int64 n) {
     int64 r = 1;
@@ -25,9 +25,9 @@ struct point {
     bool operator<(const point &rhs) const {
         return x < rhs.x || (x == rhs.x && y > rhs.y);
     }
-} p[N];
+} p[MAXN];
 
-int prev[N];
+int prev[MAXN];
 int n;
 
 struct SegmentTree {
@@ -42,7 +42,7 @@ struct SegmentTree {
             sum2 = sum2 * x % MOD;
             tag = tag * x % MOD;
         }
-    } u[N << 2];
+    } u[MAXN << 2];
 
     void update(int o) {
         u[o].sum1 = (u[o << 1].sum1 + u[o << 1 | 1].sum1) % MOD;
@@ -98,7 +98,7 @@ struct SegmentTree {
 } st;
 
 struct FenwickTree {
-    int64 u[N];
+    int64 u[MAXN];
     int n;
 
     void clear(int _n) {

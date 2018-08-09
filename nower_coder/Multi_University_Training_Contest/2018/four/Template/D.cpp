@@ -1,19 +1,19 @@
 #include <cstdio>
 
-const int N = 1000 + 10;
+const int MAXN = 1000 + 10;
 
-int a[N][N];
+int query[MAXN][MAXN];
 
 void construct(int n) {
     for (int i = 0; i < n; i += 2) {
         int m = i + 2;
-        a[m - 1][m - 1] = -1;
-        a[m - 1][m - 2] = 1;
-        a[m - 2][m - 2] = 1;
-        a[m - 2][m - 1] = 0;
+        query[m - 1][m - 1] = -1;
+        query[m - 1][m - 2] = 1;
+        query[m - 2][m - 2] = 1;
+        query[m - 2][m - 1] = 0;
         for (int j = 0; j < i; ++j) {
-            if (j & 1) a[j][m - 1] = a[j][m - 2] = a[m - 1][j] = a[m - 2][j] = -1;
-            else a[j][m - 1] = a[j][m - 2] = a[m - 1][j] = a[m - 2][j] = 1;
+            if (j & 1) query[j][m - 1] = query[j][m - 2] = query[m - 1][j] = query[m - 2][j] = -1;
+            else query[j][m - 1] = query[j][m - 2] = query[m - 1][j] = query[m - 2][j] = 1;
         }
     }
 }
@@ -31,7 +31,7 @@ int main() {
             for (int i = 0; i < n; ++i) {
                 for (int j = 0; j < n; ++j) {
                     if (j) putchar(' ');
-                    printf("%d", a[i][j]);
+                    printf("%d", query[i][j]);
                 }
                 puts("");
             }

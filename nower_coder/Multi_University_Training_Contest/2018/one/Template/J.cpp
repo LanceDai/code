@@ -2,7 +2,7 @@
 
 struct Query
 {
-    int l, r, id;
+    int l, r, block_id;
 };
 
 bool operator < (const Query& u, const Query& v)
@@ -32,7 +32,7 @@ int main()
         std::vector<int> count(n), result(q);
         for (int i = 0, k = 0; i < n; ++ i) {
             while (k < q && queries[k].r == i) {
-                int& ref = result[queries[k].id] = total;
+                int& ref = result[queries[k].block_id] = total;
                 for (int j = queries[k].l; j < n; j += ~j & j + 1) {
                     ref -= count[j];
                 }

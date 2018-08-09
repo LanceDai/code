@@ -16,7 +16,7 @@ struct ss {
 int loc[MAXN], ans[MAXN];
 //Next[i] = i位置上的数下一个出现的位置
 //fir[i] = i位置上的数是否为第一次出现
-int a[MAXN], c[MAXN], Next[MAXN], fir[MAXN];
+int query[MAXN], c[MAXN], Next[MAXN], fir[MAXN];
 
 bool cmp(ss p, ss q) {
     return p.x < q.x;
@@ -55,7 +55,7 @@ int main() {
     while (~scanf("%d %d", &n, &q)) {
 
         //初始化变量，Fir初始化为1， 其余初始化为0
-        memset(a, 0, sizeof(a));
+        memset(query, 0, sizeof(query));
         memset(loc, 0, sizeof(loc));
         memset(Next, 0, sizeof(Next));
         memset(ans, 0, sizeof(ans));
@@ -64,17 +64,17 @@ int main() {
 //		倍增数组，将对两个区间的查询转换为对单个区间的查询
         for (int i = 1; i <= n; i++) {
 //			cin>>a[i];
-            scanf("%d", &a[i]);
-            a[i + n] = a[i];
+            scanf("%d", &query[i]);
+            query[i + n] = query[i];
             fir[i] = 1;
             fir[i + n] = 1;
         }
 
         //预处理Next、Fir数组
         for (int i = 2 * n; i > 0; i--) {
-            fir[loc[a[i]]] = 0;
-            Next[i] = loc[a[i]];
-            loc[a[i]] = i;
+            fir[loc[query[i]]] = 0;
+            Next[i] = loc[query[i]];
+            loc[query[i]] = i;
         }
 
         //预处理树状数组

@@ -23,7 +23,7 @@ inline int val(char ctmp) {
     return ctmp - 'A' + 10;
 }
 
-const int N = 101010;
+const int MAXN = 101010;
 const int D = 16;
 const int BS = 1021;
 #define L(X) (X<<1)
@@ -31,7 +31,7 @@ const int BS = 1021;
 #define mid ((l+r)>>1)
 struct Nd {
     int v[D];
-} st[N << 2];
+} st[MAXN << 2];
 int R[D][D];
 
 Nd operator+(const Nd &lret, const Nd &rret) {
@@ -48,7 +48,7 @@ Nd operator+(const Nd &lret, const Nd &rret) {
 }
 
 int n, q, bs[D];
-char c[N];
+char c[MAXN];
 
 void build_st(int no, int l, int r) {
     if (l == r) {

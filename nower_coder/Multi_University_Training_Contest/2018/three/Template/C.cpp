@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-const int N = 101010;
+const int MAXN = 101010;
 
 int myrand() {
     int ret = 0;
@@ -57,7 +57,7 @@ void split(Treap *t, int k, Treap *&a, Treap *&b) {
     }
 }
 
-int n, m, p, s, ans[N], ptr;
+int n, m, p, s, ans[MAXN], ptr;
 Treap *t, *tl, *tr;
 
 void go(Treap *now) {

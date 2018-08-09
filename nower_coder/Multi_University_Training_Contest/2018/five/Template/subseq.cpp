@@ -19,8 +19,8 @@
 #define pb push_back
 using namespace std;
 typedef long long LL;
-const int N = 510000;
-const LL inf = 1200000000000000000ll;
+const int MAXN = 510000;
+const LL INF = 1200000000000000000ll;
 int n;
 LL k;
 
@@ -30,14 +30,14 @@ struct atom {
     inline atom(LL w = 0) : v(w) {}
 };
 
-inline atom operator+(const atom &a, const atom &b) { return atom(min(a.v + b.v, inf)); }
+inline atom operator+(const atom &a, const atom &b) { return atom(min(a.v + b.v, INF)); }
 
-int a[N];
-int tmp[N], m;
+int query[MAXN];
+int tmp[MAXN], m;
 
-atom sum[N * 30];
-int root[N];
-int cl[N * 30], cr[N * 30], tot;
+atom sum[MAXN * 30];
+int root[MAXN];
+int cl[MAXN * 30], cr[MAXN * 30], tot;
 
 atom segsum(int me, int l, int r, int x, int y) {
     if (x > y)return atom(0);
@@ -69,20 +69,20 @@ int main() {
     assert(1 <= n && n <= 500000);
     assert(1 <= k && k <= 1000000000000000000ll);
     for (int i = (int) 1; i <= (int) n; i++) {
-        scanf("%d", &a[i]);
-        assert(1 <= a[i] && a[i] <= 1000000000);
-        tmp[i] = a[i];
+        scanf("%d", &query[i]);
+        assert(1 <= query[i] && query[i] <= 1000000000);
+        tmp[i] = query[i];
     }
     m = n;
     tmp[++m] = (1e9) + 7;
     sort(tmp + 1, tmp + 1 + m);
     m = unique(tmp + 1, tmp + 1 + m) - tmp - 1;
-    for (int i = (int) 1; i <= (int) n; i++)a[i] = lower_bound(tmp + 1, tmp + 1 + m, a[i]) - tmp;
+    for (int i = (int) 1; i <= (int) n; i++)query[i] = lower_bound(tmp + 1, tmp + 1 + m, query[i]) - tmp;
     segadd(root[n + 1], 1, m, m, atom(1));
     for (int i = (int) n; i >= (int) 1; i--) {
         root[i] = root[i + 1];
-        atom gt = segsum(root[i], 1, m, a[i] + 1, m);
-        segadd(root[i], 1, m, a[i], gt);
+        atom gt = segsum(root[i], 1, m, query[i] + 1, m);
+        segadd(root[i], 1, m, query[i], gt);
     }
     if (segsum(root[1], 1, m, 1, m - 1).v < k) {
         printf("-1\n");
@@ -97,14 +97,14 @@ int main() {
     ans.clear();
     int pre = 0;
     for (int i = (int) 1; i <= (int) n; i++)
-        if (a[i] > pre) {
+        if (query[i] > pre) {
             if (k == 1)break;
             k--;
-            atom gt = segsum(root[i + 1], 1, m, a[i] + 1, m);
+            atom gt = segsum(root[i + 1], 1, m, query[i] + 1, m);
             //printf("%d %d %d %lld %lld\n",i,pre,a[i],k,gt.v);
             if (gt.v >= k) {
                 ans.push_back(i);
-                pre = a[i];
+                pre = query[i];
             } else {
                 k -= gt.v - 1;
             }

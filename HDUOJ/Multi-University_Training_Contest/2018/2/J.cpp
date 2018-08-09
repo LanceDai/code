@@ -2,24 +2,24 @@
 
 using namespace std;
 typedef long long LL;
-const LL N = 100005;
-LL a[N], tmp[N], ans;
+const LL MAXN = 100005;
+LL query[MAXN], tmp[MAXN], ans;
 
 void Merge(LL l, LL m, LL r) {
     LL i = l, j = m + 1, k = l;
     while (i <= m && j <= r) {
-        if (a[i] > a[j]) {
-            tmp[k++] = a[j++];
+        if (query[i] > query[j]) {
+            tmp[k++] = query[j++];
             ans += m - i + 1;
         } else
-            tmp[k++] = a[i++];
+            tmp[k++] = query[i++];
     }
     while (i <= m)
-        tmp[k++] = a[i++];
+        tmp[k++] = query[i++];
     while (j <= r)
-        tmp[k++] = a[j++];
+        tmp[k++] = query[j++];
     for (LL i = l; i <= r; i++)
-        a[i] = tmp[i];
+        query[i] = tmp[i];
 }
 
 void Merge_sort(LL l, LL r) {
@@ -36,7 +36,7 @@ int main() {
     cin.tie(nullptr);
     LL n, x, y;
     while (cin >> n >> x >> y) {
-        for (LL i = 0; i < n; i++) cin >> a[i];
+        for (LL i = 0; i < n; i++) cin >> query[i];
         ans = 0;
         Merge_sort(0, n - 1);
         cout << ans * min(y, x) << endl;

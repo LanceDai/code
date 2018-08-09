@@ -14,10 +14,10 @@ const int mods[29] = {
         8, 4, 2, 1
 };
 
-const int N = 1e6 + 10, S = 262144 * 3;
+const int MAXN = 1e6 + 10, S = 262144 * 3;
 
 int p2[29][S];
-char s[N];
+char s[MAXN];
 
 int64 pow_mod(int64 a, int64 n, int64 mod) {
     if ((mod & (mod - 1)) == 0 && n > 30) return 0;

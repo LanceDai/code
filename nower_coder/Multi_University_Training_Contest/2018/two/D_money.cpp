@@ -4,7 +4,7 @@
 
 using namespace std;
 typedef long long LL;
-int a[100005];
+int query[100005];
 
 /**
  * 连续递增子序列的个数就是最小交易次数
@@ -20,18 +20,18 @@ int main() {
     while (t--) {
         cin >> n;
         for (int i = 0; i < n; i++) {
-            cin >> a[i];
+            cin >> query[i];
         }
         bool isContinuous = false;
         LL money = 0, count = 0;
         for (int i = 1; i < n; i++) {
-            if (a[i] > a[i - 1]) {
-                money += a[i] - a[i - 1];
+            if (query[i] > query[i - 1]) {
+                money += query[i] - query[i - 1];
                 //如果isContinuous==false，证明这是一个新的递增子序列，count++
                 if (!isContinuous)count++;
                 //连续递增序列开始
                 isContinuous = true;
-            } else if (a[i] < a[i - 1]) {
+            } else if (query[i] < query[i - 1]) {
                 //连续递增序列结束
                 isContinuous = false;
             }

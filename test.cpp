@@ -1,57 +1,63 @@
-#include<bits/stdc++.h>
-#include<cmath>
-
-#define mem(a, b) memset(a,b,sizeof a);
-#define INF 0x3f3f3f3f
+#include <bits/stdc++.h>
 
 using namespace std;
+#define rep(i, a, n) for (int i=a;i<n;i++)
+#define per(i, a, n) for (int i=n-1;i>=a;i--)
+#define pb push_back
+#define mp make_pair
+#define all(x) (x).begin(),(x).end()
+#define fi first
+#define se second
+#define SZ(x) ((int)(x).size())
+typedef vector<int> VI;
+typedef long long ll;
+typedef pair<int, int> PII;
+const ll mod = 1000000007;
 
-typedef long long LL;
-typedef unsigned long long ull;
-
-const int dir[4][2] = {-1, 0, 1, 0, 0, -1, 0, 1};
-
-int n;
-ull rs;
-int vis[20][20];
-
-void dfs(int x, int y) {
-    if (x == 0 || y == 0 || x == n || y == n) {
-        rs++;
-        return;
+ll powmod(ll a, ll b) {
+    ll res = 1;
+    a %= mod;
+    assert(b >= 0);
+    for (; b; b >>= 1) {
+        if (b & 1)res = res * a % mod;
+        a = a * a % mod;
     }
+    return res;
+}
 
-    for (int i = 0; i < 4; i++) {
-        int dx = x + dir[i][0], dy = y + dir[i][1];
-        if (dx < 0 || dy < 0 || dx > n || dy > n) continue;
-        if (!vis[dx][dy]) {
-            vis[dx][dy] = vis[n - dx][n - dy] = 1;
-            dfs(dx, dy);
-            vis[dx][dy] = vis[n - dx][n - dy] = 0;
-        }
-    }
+ll gcd(ll a, ll b) { return b ? gcd(b, a % b) : a; }
+// head
+
+const int N = 2000100;
+ll inv[N], fac[N], fnv[N], fib[N];
+int _, n, k;
+ll f[10100];
+
+ll comb(ll a, ll b) {
+    return fac[a] * fnv[b] % mod * fnv[a - b] % mod;
 }
 
 int main() {
-#ifndef ONLINE_JUDGE
-//    freopen("/home/lance/CLionProjects/code/HDUOJ/Multi-University_Training_Contest/2018/4/input.txt", "r+", stdin);
-    freopen("/home/lance/CLionProjects/code/output.txt", "w+", stdout);
-#endif
-    ClOCK_c
-    while (~scanf("%d", &n)) {
-        if (n % 2 == 1) {
-            puts("1");
-            continue;
-        }
-        //if (n == 10) { puts("562070107"); continue; } // 暴力出来
-        mem(vis, 0);
-        rs = 0;
-        int dx = n / 2, dy = n / 2;
-        vis[dx][dy] = vis[n - dx][n - dy] = 1;
-        dfs(n / 2, n / 2);
-        vis[dx][dy] = vis[n - dx][n - dy] = 0;
-        cout << rs / 4 << endl; // 因为有四个象限会重复
+    inv[1] = 1;
+    fac[0] = fnv[0] = 1;
+    for (int i = 2; i <= 1000000; i++) inv[i] = (mod - mod / i) * inv[mod % i] % mod;
+    for (int i = 1; i <= 2000000; i++) {
+        fac[i] = fac[i - 1] * i % mod;
+        fnv[i] = fnv[i - 1] * inv[i] % mod;
     }
-
-    return 0;
+    fib[0] = 0;
+    fib[1] = 1;
+    rep(i, 2, 1000001) fib[i] = (fib[i - 1] + fib[i - 2]) % (mod - 1);
+    for (scanf("%d", &_); _; _--) {
+        scanf("%d%d", &n, &k);
+        VI d;
+        rep(i, 1, n + 1) if (n % i == 0) d.pb(i);
+        rep(i, 0, SZ(d)) f[i] = comb(n / d[i] + k - 1, k - 1);
+        per(i, 0, SZ(d)) rep(j, i + 1, SZ(d)) if (d[j] % d[i] == 0) f[i] = (f[i] - f[j] + mod) % mod;
+        ll ans = 0;
+        rep(i, 0, SZ(d)) ans = (ans + f[i] * (powmod(2, fib[d[i]]) - 1)) % mod;
+        ans = ans * powmod(comb(n + k - 1, k - 1), mod - 2) % mod;
+        if (ans < 0) ans += mod;
+        printf("%lld\n", ans);
+    }
 }

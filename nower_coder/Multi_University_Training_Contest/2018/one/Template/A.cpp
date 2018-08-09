@@ -2,9 +2,9 @@
 
 const int MOD = 1e9 + 7;
 
-const int N = 1005;
+const int MAXN = 1005;
 
-int dp[N][N];
+int dp[MAXN][MAXN];
 
 void update(int& x, int a)
 {
@@ -22,8 +22,8 @@ int sqr(int x)
 int main()
 {
     dp[0][0] = 1;
-    for (int i = 0; i < N; ++ i) {
-        for (int j = 0; j < N; ++ j) {
+    for (int i = 0; i < MAXN; ++ i) {
+        for (int j = 0; j < MAXN; ++ j) {
             if (i) {
                 update(dp[i][j], dp[i - 1][j]);
             }

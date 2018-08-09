@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 
-const int N = 20000 * 6;
+const int MAXN = 20000 * 6;
 
 struct SA {
     SA(const std::vector<int>& s)

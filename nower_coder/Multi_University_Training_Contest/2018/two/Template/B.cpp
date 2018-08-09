@@ -28,7 +28,7 @@ inline bool upmax(T &x, T y) { return x < y ? x = y, 1 : 0; }
 
 typedef unsigned int u32;
 typedef long long LL;
-typedef unsigned long long ULL;
+typedef unsigned long long UI;
 typedef long double lod;
 typedef pair<int, int> PR;
 typedef vector<int> VI;
@@ -38,7 +38,7 @@ const int oo = 1 << 30;
 const LL OO = 1LL << 62;
 const int MOD = 1e9 + 7;
 
-const int N = 1e5 + 100;
+const int MAXN = 1e5 + 100;
 
 int qpow(int x, int y) {
     int ans = 1;
@@ -114,11 +114,11 @@ using io::gs;
 using io::ps;
 using io::print;
 
-int p[N], d[N], group[N], st[N];
-int vis[N];
-bool in[N];
-LL dp[N][2], g[N][2];
-VI e[N];
+int p[MAXN], d[MAXN], group[MAXN], st[MAXN];
+int vis[MAXN];
+bool in[MAXN];
+LL dp[MAXN][2], g[MAXN][2];
+VI e[MAXN];
 
 //0:������������С����
 //1:������������С���ۣ��Ҹ���ԭ�۹����

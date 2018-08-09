@@ -19,12 +19,12 @@
 #define pb push_back
 using namespace std;
 typedef long long LL;
-const int N = 205;
-int x[N][4];
-int y[N][4];
+const int MAXN = 205;
+int x[MAXN][4];
+int y[MAXN][4];
 int n;
 namespace cf {
-    int head[N * 2], np[N * N * 10], p[N * N * 10], flow[N * N * 10], cost[N * N * 10], tot;
+    int head[MAXN * 2], np[MAXN * MAXN * 10], p[MAXN * MAXN * 10], flow[MAXN * MAXN * 10], cost[MAXN * MAXN * 10], tot;
     int S, T;
 
     void init() {
@@ -46,11 +46,11 @@ namespace cf {
         cost[tot] = -c;
     }
 
-    bool inq[N * 2];
-    int q[N * N * N * 2];
-    int dis[N * 2];
-    int pre[N * 2];
-    int preu[N * 2];
+    bool inq[MAXN * 2];
+    int q[MAXN * MAXN * MAXN * 2];
+    int dis[MAXN * 2];
+    int pre[MAXN * 2];
+    int preu[MAXN * 2];
 
     int spfa() {
         q[q[0] = 1] = S;

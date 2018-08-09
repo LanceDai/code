@@ -2,7 +2,7 @@
 
 using namespace std;
 typedef long long LL;
-const int N = 1e5 + 100, M = 11;
+const int MAXN = 1e5 + 100, M = 11;
 
 int gi() {
     int w = 0;
@@ -15,8 +15,8 @@ int gi() {
 }
 
 const int MOD = 1e9 + 7;
-int group[N][M];
-int fa[N], st[N];
+int group[MAXN][M];
+int fa[MAXN], st[MAXN];
 
 inline int qpow(int x, int y) {
     int ans = 1;

@@ -6,19 +6,19 @@
 #include<bits/stdc++.h>
 
 using namespace std;
-long long n, m1, m2, i, j, x, y, a[10][10], b[10][10];
+long long n, m1, m2, i, j, x, y, query[10][10], b[10][10];
 long long num[10];
 set<long long> s;
 
 int main() {
     while (~scanf("%lld %lld %lld", &n, &m1, &m2)) {
         s.clear();
-        memset(a, 0, sizeof a);
+        memset(query, 0, sizeof query);
         memset(b, 0, sizeof b);
 
         for (i = 1; i <= m1; i++) {
             scanf("%lld%lld", &x, &y);
-            a[x][y] = a[y][x] = 1;
+            query[x][y] = query[y][x] = 1;
         }
         for (i = 1; i <= m2; i++) {
             scanf("%lld%lld", &x, &y);
@@ -34,13 +34,13 @@ int main() {
             long long now = 0, ok = 1;
             for (i = 1; i <= n; i++) {
                 for (j = 1; j <= n; j++) {
-                    if (a[i][j] && b[num[i]][num[j]]) {
+                    if (query[i][j] && b[num[i]][num[j]]) {
                         //匹配成功，以二进制保存子图状态
                         //把邻接矩阵压缩成一维，通过位运算保存边出现的位置
                         //(num[i] - 1) * (n) + num[j])：边在一维中的位置 x
                         //1LL << ((num[i] - 1) * (n) + num[j])：将 1 左移 x 位，即将第 x 位置为 1
                         now += (1LL << ((num[i] - 1) * (n) + num[j]));
-                    } else if (a[i][j] && !b[num[i]][num[j]]) {
+                    } else if (query[i][j] && !b[num[i]][num[j]]) {
                         //没有匹配
                         ok = 0;
                     }

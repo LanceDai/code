@@ -19,10 +19,10 @@
 #define pb push_back
 using namespace std;
 typedef long long LL;
-const int N = 110000;
-int n, s[N], c[N], k;
-int id[N];
-bool del[N];
+const int MAXN = 110000;
+int n, s[MAXN], c[MAXN], k;
+int id[MAXN];
+bool del[MAXN];
 double D;
 
 inline bool cmp(const int &x, const int &y) {

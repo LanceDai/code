@@ -20,7 +20,7 @@
 using namespace std;
 typedef long long LL;
 const int MOD = 998244353;
-const int N = 100005;
+const int MAXN = 100005;
 
 inline int Pow(int a, int b) {
     int c = 1;
@@ -28,9 +28,9 @@ inline int Pow(int a, int b) {
     return c;
 }
 
-int p[N], d[N], n, inv100;
-int tmp[N], m;
-int cnt[N];
+int p[MAXN], d[MAXN], n, inv100;
+int tmp[MAXN], m;
+int cnt[MAXN];
 
 void add(int x, int v) {
     for (; x <= m; x += (x & (-x)))cnt[x] = cnt[x] * 1ll * v % MOD;

@@ -4,7 +4,7 @@ typedef long long LL;
 using namespace std;
 int n, m, k;
 vector<LL> r;
-vector<vector<LL> > a;
+vector<vector<LL> > query;
 vector<vector<LL> > b;
 vector<vector<LL> > d;
 
@@ -53,11 +53,11 @@ int main() {
     srand(rand() * rand());
     cin >> n >> m >> k;
     r.resize(n * m + 1ULL);
-    a.resize(n + 2ULL);
+    query.resize(n + 2ULL);
     b.resize(n + 2ULL);
     d.resize(n + 2ULL);
     for (int i = 0; i < n + 2; ++i) {
-        a[i].resize(m + 2ULL);
+        query[i].resize(m + 2ULL);
         b[i].resize(m + 2ULL);
         d[i].resize(m + 2ULL);
     }
