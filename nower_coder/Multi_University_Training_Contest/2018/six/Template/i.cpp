@@ -7,7 +7,7 @@
 #define rch rs(x), mid + 1, r
 
 const int max_N = (1 << 18) + 21;
-const int mod = 998244353;
+const int MOD = 998244353;
 
 int T, MAXN, M, ans[max_N], isWolf[max_N], tot;
 
@@ -38,7 +38,7 @@ int query(int x, int l, int r) {
             if (!ans[vec[x].back()]) {
                 ++res;
                 ans[vec[x].back()] = qi;
-                last = int(1ll * last * vec[x].back() % mod);
+                last = int(1ll * last * vec[x].back() % MOD);
             }
             vec[x].pop_back();
         }

@@ -315,8 +315,8 @@ MYSPACE
         VI ans;
         // dump(VI(ss,ss+tl));
         REP(i, tl - sl + 1)if (ss[i] == 0)ans.push_back(i + 1);
-        W(SZ(ans));
-        if (SZ(ans))W(ans);
+        W(((int) (ans).size()));
+        if (((int) (ans).size()))W(ans);
         return 0;
     }
 

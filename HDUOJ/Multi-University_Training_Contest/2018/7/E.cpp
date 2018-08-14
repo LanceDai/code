@@ -1,6 +1,3 @@
-//============================================================================
-//Name：牛客多校第七场 C Bit Compression 暴力深搜 剪枝
-//============================================================================
 #include<bits/stdc++.h>
 
 #define IO ios_base::sync_with_stdio(0),cin.tie(0)
@@ -58,7 +55,6 @@ int main() {
 //    freopen(R"(C:\Users\ACM-PC\CLionProjects\Competitaon\Problem\in)", "r", stdin);
 //    freopen(R"(C:\Users\ACM-PC\CLionProjects\Competitaon\Problem\out)", "w", stdout);
 #endif
-
     int t;
     cin >> t;
     phi[1] = 1;
@@ -66,15 +62,14 @@ int main() {
     while (t--) {
         int m, n, p, ans = 0;
         cin >> m >> n >> p;
-        rep(i, 1, m + 1) {
-            rep(j, 1, n + 1) {
-                LL gg = phi[i * j] * Fermat((phi[i] * phi[j]), p) % p;
-                printf("i = %d j = %d  %d / (%d * %d) = %lld\n", i, j, phi[i * j], phi[i], phi[j], gg);
-                ans += gg;
+        if(m > n) swap(m, n);
+        for (int i = 1; i <= m; ++i) {
+            if(i == 1) ans += n;
+            else if(){
+
             }
-            printf("\n", 1);
+            while (ans > p) ans -= p;
         }
-        cout << ans % p << endl;
     }
 
     return 0;

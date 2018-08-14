@@ -29,7 +29,7 @@ inline int Pow(int a, int b) {
 }
 
 int p[MAXN], d[MAXN], n, inv100;
-int tmp[MAXN], m;
+int nextInRight[MAXN], m;
 int cnt[MAXN];
 
 void add(int x, int v) {
@@ -51,11 +51,11 @@ int main() {
         assert(1 <= p[i] && p[i] <= 100);
         assert(1 <= d[i] && d[i] <= 1000000000);
         p[i] = p[i] * 1ll * inv100 % MOD;
-        tmp[++m] = d[i];
+        nextInRight[++m] = d[i];
     }
-    sort(tmp + 1, tmp + 1 + m);
-    m = unique(tmp + 1, tmp + 1 + m) - tmp - 1;
-    for (int i = (int) 1; i <= (int) n; i++)d[i] = lower_bound(tmp + 1, tmp + 1 + m, d[i]) - tmp;
+    sort(nextInRight + 1, nextInRight + 1 + m);
+    m = unique(nextInRight + 1, nextInRight + 1 + m) - nextInRight - 1;
+    for (int i = (int) 1; i <= (int) n; i++)d[i] = lower_bound(nextInRight + 1, nextInRight + 1 + m, d[i]) - nextInRight;
     for (int i = (int) 0; i <= (int) m; i++)cnt[i] = 1;
     int ans = 0;
     for (int i = (int) 1; i <= (int) n; i++) {

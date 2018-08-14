@@ -29,7 +29,7 @@ inline bool cmpy(const pair<int, int> &x, const pair<int, int> &y) {
     return x.first < y.first;
 }
 
-int tmp[MAXN * 2], m;
+int nextInRight[MAXN * 2], m;
 int cnt[MAXN];
 
 void add(int x) {
@@ -54,12 +54,12 @@ int main() {
         assert(1 <= query[i].se && query[i].se <= 1000000000);
         assert(!hv[query[i]]);
         hv[query[i]] = 1;
-        tmp[++m] = query[i].first;
+        nextInRight[++m] = query[i].first;
     }
-    sort(tmp + 1, tmp + 1 + m);
-    m = unique(tmp + 1, tmp + 1 + m) - tmp - 1;
+    sort(nextInRight + 1, nextInRight + 1 + m);
+    m = unique(nextInRight + 1, nextInRight + 1 + m) - nextInRight - 1;
     for (int i = (int) 1; i <= (int) n; i++) {
-        query[i].first = lower_bound(tmp + 1, tmp + 1 + m, query[i].first) - tmp;
+        query[i].first = lower_bound(nextInRight + 1, nextInRight + 1 + m, query[i].first) - nextInRight;
     }
     sort(query + 1, query + 1 + n, cmpy);
     int ans = n;

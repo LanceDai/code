@@ -33,7 +33,7 @@ struct atom {
 inline atom operator+(const atom &a, const atom &b) { return atom(min(a.v + b.v, INF)); }
 
 int query[MAXN];
-int tmp[MAXN], m;
+int nextInRight[MAXN], m;
 
 atom sum[MAXN * 30];
 int root[MAXN];
@@ -71,13 +71,13 @@ int main() {
     for (int i = (int) 1; i <= (int) n; i++) {
         scanf("%d", &query[i]);
         assert(1 <= query[i] && query[i] <= 1000000000);
-        tmp[i] = query[i];
+        nextInRight[i] = query[i];
     }
     m = n;
-    tmp[++m] = (1e9) + 7;
-    sort(tmp + 1, tmp + 1 + m);
-    m = unique(tmp + 1, tmp + 1 + m) - tmp - 1;
-    for (int i = (int) 1; i <= (int) n; i++)query[i] = lower_bound(tmp + 1, tmp + 1 + m, query[i]) - tmp;
+    nextInRight[++m] = (1e9) + 7;
+    sort(nextInRight + 1, nextInRight + 1 + m);
+    m = unique(nextInRight + 1, nextInRight + 1 + m) - nextInRight - 1;
+    for (int i = (int) 1; i <= (int) n; i++)query[i] = lower_bound(nextInRight + 1, nextInRight + 1 + m, query[i]) - nextInRight;
     segadd(root[n + 1], 1, m, m, atom(1));
     for (int i = (int) n; i >= (int) 1; i--) {
         root[i] = root[i + 1];

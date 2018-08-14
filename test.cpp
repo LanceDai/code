@@ -1,63 +1,102 @@
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
 
 using namespace std;
-#define rep(i, a, n) for (int i=a;i<n;i++)
-#define per(i, a, n) for (int i=n-1;i>=a;i--)
-#define pb push_back
-#define mp make_pair
-#define all(x) (x).begin(),(x).end()
+using namespace __gnu_pbds;
+
 #define fi first
 #define se second
-#define SZ(x) ((int)(x).size())
-typedef vector<int> VI;
+#define mp make_pair
+#define pb push_back
+#define fbo find_by_order
+#define ook order_of_key
+
 typedef long long ll;
-typedef pair<int, int> PII;
-const ll mod = 1000000007;
+typedef pair<ll, ll> ii;
+typedef vector<int> vi;
+typedef long double ld;
+typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> pbds;
+typedef set<int>::iterator sit;
+typedef map<int, int>::iterator mit;
+typedef vector<int>::iterator vit;
 
-ll powmod(ll a, ll b) {
-    ll res = 1;
-    a %= mod;
-    assert(b >= 0);
-    for (; b; b >>= 1) {
-        if (b & 1)res = res * a % mod;
-        a = a * a % mod;
+vector<ii> edges;
+int n;
+
+void add(int u, int v) {
+    edges.pb(mp(u, v));
+}
+
+ll ncr(int n, int k) {
+    if (n < k) return 0;
+    ll ans = 1;
+    for (int i = n; i >= n - k + 1; i--) {
+        ans *= i;
     }
-    return res;
+    for (int i = 1; i <= k; i++) ans /= i;
+    return ans;
 }
 
-ll gcd(ll a, ll b) { return b ? gcd(b, a % b) : a; }
-// head
+const int N = 200001;
 
-const int N = 2000100;
-ll inv[N], fac[N], fnv[N], fib[N];
-int _, n, k;
-ll f[10100];
-
-ll comb(ll a, ll b) {
-    return fac[a] * fnv[b] % mod * fnv[a - b] % mod;
-}
+int iv[200001];
 
 int main() {
-    inv[1] = 1;
-    fac[0] = fnv[0] = 1;
-    for (int i = 2; i <= 1000000; i++) inv[i] = (mod - mod / i) * inv[mod % i] % mod;
-    for (int i = 1; i <= 2000000; i++) {
-        fac[i] = fac[i - 1] * i % mod;
-        fnv[i] = fnv[i - 1] * inv[i] % mod;
+#ifndef ONLINE_JUDGE
+    freopen(R"(D:\ACM\CLionProject\code\nower_coder\Multi_University_Training_Contest\2018\seven\input.txt)", "r",
+            stdin);
+    freopen(R"(D:\ACM\CLionProject\code\nower_coder\Multi_University_Training_Contest\2018\seven\output.txt)", "w", stdout);
+#endif
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    memset(iv, -1, sizeof(iv));
+    for (int i = 1; i <= 100; i++) iv[ncr(i, 3)] = i;
+    int z;
+    cin >> z;
+    n = 4;
+    int C = 70;
+    while (n < C && ncr(n + 1, 4) < z) {
+        n++;
     }
-    fib[0] = 0;
-    fib[1] = 1;
-    rep(i, 2, 1000001) fib[i] = (fib[i - 1] + fib[i - 2]) % (mod - 1);
-    for (scanf("%d", &_); _; _--) {
-        scanf("%d%d", &n, &k);
-        VI d;
-        rep(i, 1, n + 1) if (n % i == 0) d.pb(i);
-        rep(i, 0, SZ(d)) f[i] = comb(n / d[i] + k - 1, k - 1);
-        per(i, 0, SZ(d)) rep(j, i + 1, SZ(d)) if (d[j] % d[i] == 0) f[i] = (f[i] - f[j] + mod) % mod;
-        ll ans = 0;
-        rep(i, 0, SZ(d)) ans = (ans + f[i] * (powmod(2, fib[d[i]]) - 1)) % mod;
-        ans = ans * powmod(comb(n + k - 1, k - 1), mod - 2) % mod;
-        if (ans < 0) ans += mod;
-        printf("%lld\n", ans);
+    C = min(C, n);
+    z -= ncr(n, 4);
+    vi res;
+    for (int i = 2; i <= C; i++) {
+        for (int j = i; j <= C; j++) {
+            for (int k = j; k <= C; k++) {
+                for (int l = k; l <= C; l++) {
+                    int cnt = ncr(i, 3) + ncr(j, 3) + ncr(k, 3) + ncr(l, 3);
+                    if (cnt <= z && iv[z - cnt] >= 0 && iv[z - cnt] <= C) {
+                        res.pb(i);
+                        res.pb(j);
+                        res.pb(k);
+                        res.pb(l);
+                        res.pb(iv[z - cnt]);
+                    }
+                    if (!res.empty()) break;
+                }
+                if (!res.empty()) break;
+            }
+            if (!res.empty()) break;
+        }
+        if (!res.empty()) break;
+    }
+    assert(!res.empty());
+    for (int i = 1; i <= n; i++) {
+        for (int j = i + 1; j <= n; j++) {
+            add(i, j);
+        }
+    }
+    for (int i = n + 1; i <= n + 5; i++) {
+        for (int j = 0; j < res[i - n - 1]; j++) {
+            add(i, j + 1);
+        }
+    }
+    n += 5;
+    cout << n << ' ' << edges.size() << '\n';
+    for (int i = 0; i < edges.size(); i++) {
+        cout << edges[i].fi << ' ' << edges[i].se << '\n';
     }
 }
+

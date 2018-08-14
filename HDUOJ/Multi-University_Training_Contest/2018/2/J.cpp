@@ -3,23 +3,23 @@
 using namespace std;
 typedef long long LL;
 const LL MAXN = 100005;
-LL query[MAXN], tmp[MAXN], ans;
+LL query[MAXN], nextInRight[MAXN], ans;
 
 void Merge(LL l, LL m, LL r) {
     LL i = l, j = m + 1, k = l;
     while (i <= m && j <= r) {
         if (query[i] > query[j]) {
-            tmp[k++] = query[j++];
+            nextInRight[k++] = query[j++];
             ans += m - i + 1;
         } else
-            tmp[k++] = query[i++];
+            nextInRight[k++] = query[i++];
     }
     while (i <= m)
-        tmp[k++] = query[i++];
+        nextInRight[k++] = query[i++];
     while (j <= r)
-        tmp[k++] = query[j++];
+        nextInRight[k++] = query[j++];
     for (LL i = l; i <= r; i++)
-        query[i] = tmp[i];
+        query[i] = nextInRight[i];
 }
 
 void Merge_sort(LL l, LL r) {

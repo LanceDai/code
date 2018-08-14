@@ -13,7 +13,7 @@ bool cmp(ss p, ss q) {
     return p.cnt > q.cnt;
 }
 
-int tmp[MAXN];
+int nextInRight[MAXN];
 map<int, int> char_map;
 
 int main() {
@@ -23,7 +23,7 @@ int main() {
     cin >> t;
     while (t--) {
         memset(f, 0, sizeof(f));
-        memset(tmp, 0, sizeof(tmp));
+        memset(nextInRight, 0, sizeof(nextInRight));
         char_map.clear();
         cin >> n >> m;
         for (int i = 0; i < n; i++) {
@@ -43,7 +43,7 @@ int main() {
 //		f[i].y 成为出现次数最多需要删掉的数目
         int sum = 0;
         for (int i = 0; i < cnt; i++) {
-            tmp[f[i].cnt]++;
+            nextInRight[f[i].cnt]++;
             if (f[i].cnt != f[i - 1].cnt || i == 0) {
 //                如果要取得这个数，那么就要把在他前面次数多的都删为比当前这个数的次数少一
                 f[i].y = sum - (i) * (f[i].cnt - 1);
@@ -56,7 +56,7 @@ int main() {
 // 		map[i] 和 i 出现次数相同的数的个数
         char_map.clear();
         for (int i = 0; i < cnt; i++) {
-            char_map[f[i].x] = tmp[f[i].cnt];
+            char_map[f[i].x] = nextInRight[f[i].cnt];
         }
         int M = -1;
         for (int i = 0; i < cnt; i++) {
