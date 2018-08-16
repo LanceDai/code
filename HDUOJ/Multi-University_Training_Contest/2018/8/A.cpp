@@ -15,7 +15,7 @@ typedef long long LL;
 typedef pair<int, int> PII;
 
 LL gcd(LL a, LL b) { return b ? gcd(b, a % b) : a; }
-
+const int MOD = 998244353;
 int main() {
 #ifndef ONLINE_JUDGE
     freopen("data.in", "r", stdin);

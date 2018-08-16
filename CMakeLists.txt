@@ -55,6 +55,10 @@ add_executable(nower_coder_2018_Multi_University_Training_Contest_Eight_H nower_
 add_executable(nower_coder_2018_Multi_University_Training_Contest_Eight_B nower_coder/Multi_University_Training_Contest/2018/eight/B.cpp)
 add_executable(nower_coder_2018_Multi_University_Training_Contest_Eight_G nower_coder/Multi_University_Training_Contest/2018/eight/G.cpp)
 
+#nower_coder_2018_Multi_University_Training_Contest_Nine
+add_executable(nower_coder_2018_Multi_University_Training_Contest_Nine_E nower_coder/Multi_University_Training_Contest/2018/nine/E.cpp)
+add_executable(nower_coder_2018_Multi_University_Training_Contest_Nine_G nower_coder/Multi_University_Training_Contest/2018/nine/G.cpp)
+
 #hduoj_Multi-University_Training_Contest_2018_1
 add_executable(hduoj_Multi-University_Training_Contest_2018_1_A HDUOJ/Multi-University_Training_Contest/2018/1/A.cpp)
 add_executable(hduoj_Multi-University_Training_Contest_2018_1_B HDUOJ/Multi-University_Training_Contest/2018/1/B.cpp)
@@ -96,4 +100,10 @@ add_executable(hduoj_Multi-University_Training_Contest_2018_6_L HDUOJ/Multi-Univ
 
 #hduoj_Multi-University_Training_Contest_2018_7
 add_executable(hduoj_Multi-University_Training_Contest_2018_7_A HDUOJ/Multi-University_Training_Contest/2018/7/A.cpp)
-add_executable(hduoj_Multi-University_Training_Contest_2018_7_C HDUOJ/Multi-University_Training_Contest/2018/7/E.cpp)
+add_executable(hduoj_Multi-University_Training_Contest_2018_7_E HDUOJ/Multi-University_Training_Contest/2018/7/E.cpp)
+add_executable(hduoj_Multi-University_Training_Contest_2018_7_J HDUOJ/Multi-University_Training_Contest/2018/7/J.cpp)
+
+#hduoj_Multi-University_Training_Contest_2018_8
+add_executable(hduoj_Multi-University_Training_Contest_2018_8_A HDUOJ/Multi-University_Training_Contest/2018/8/A.cpp)
+add_executable(hduoj_Multi-University_Training_Contest_2018_8_E HDUOJ/Multi-University_Training_Contest/2018/8/E.cpp)
+add_executable(hduoj_Multi-University_Training_Contest_2018_8_J HDUOJ/Multi-University_Training_Contest/2018/8/J.cpp)

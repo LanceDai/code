@@ -1,81 +1,23 @@
-//============================================================================
-//Name：牛客多校第七场 C Bit Compression 暴力深搜 剪枝
-//============================================================================
 #include<bits/stdc++.h>
-
-#define IO ios_base::sync_with_stdio(0),cin.tie(0)
-#define rep(i, a, n) for (int i = a; i < n; i++)
-#define mm(arr, val) memset(arr, val, sizeof(arr))
 
 using namespace std;
 typedef long long LL;
 
-const int N = 20;
-
-const int MAX = 1e3;
-bool notprime[MAX];
-int prime[MAX];
-int phi[MAX];
-
-void get_Eular() {
-    int cnt = 0;
-    for (int i = 2; i < MAX; i++) {
-        if (!notprime[i]) {
-            prime[cnt++] = i;
-            phi[i] = i - 1;
-        }
-        for (int j = 0; j < cnt && i * prime[j] < MAX; j++) {
-            notprime[i * prime[j]] = true;
-            if (i % prime[j] == 0) {
-                phi[i * prime[j]] = phi[i] * prime[j];
-                break;
-            }
-            phi[i * prime[j]] = phi[i] * (prime[j] - 1);
-        }
+inline LL quick_mod(LL x, LL n, LL MOD) {
+    LL ret = 1;
+    while (n) {
+        if (n & 1)ret = ret * x % MOD;
+        x = x * x % MOD;
+        n >>= 1;
     }
-}
-
-//快速幂取法a的b次方求余p
-LL pow_mod(LL a, LL b, LL p) {
-    LL ans = 1;
-    while (b) {
-        if (b & 1)
-            ans = (ans * a) % p;
-        a = (a * a) % p;
-        b >>= 1;
-    }
-    return ans;
-}
-
-//费马小定理求a关于p的逆元
-LL Fermat(LL a, LL p) {
-    return pow_mod(a, p - 2, p);
+    return ret;
 }
 
 int main() {
-#ifdef ONLINE_JUDGE
-#else
+#ifndef ONLINE_JUDGE
 //    freopen(R"(C:\Users\ACM-PC\CLionProjects\Competitaon\Problem\in)", "r", stdin);
 //    freopen(R"(C:\Users\ACM-PC\CLionProjects\Competitaon\Problem\out)", "w", stdout);
 #endif
-
-    int t;
-    cin >> t;
-    phi[1] = 1;
-    get_Eular();
-    while (t--) {
-        int m, n, p, ans = 0;
-        cin >> m >> n >> p;
-        rep(i, 1, m + 1) {
-            rep(j, 1, n + 1) {
-                LL gg = phi[i * j] * Fermat((phi[i] * phi[j]), p) % p;
-                printf("i = %d j = %d  %d / (%d * %d) = %lld\n", i, j, phi[i * j], phi[i], phi[j], gg);
-                ans += gg;
-            }
-            printf("\n", 1);
-        }
-        cout << ans % p << endl;
-    }
-
+    cout << (0 + 1 + 1 + 16 + 1 + 2 + 16 + 81) * quick_mod(8, 1000000005, 1000000007) % 1000000007 << endl;
     return 0;
 }
